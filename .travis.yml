@@ -4,4 +4,4 @@ node_js:
 before_install: npm install -g grunt-cli
 install:  npm install npm@latest
 before_script: npm install grunt
-script: grunt --gruntfile \ShowTracker\Gruntfile.node_js
+script: grunt

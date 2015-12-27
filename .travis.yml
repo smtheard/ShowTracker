@@ -4,4 +4,9 @@ node_js:
 before_install: npm install -g grunt-cli
 install:  npm install npm@latest
 before_script: npm install grunt
+before_script: npm install grunt-istanbul
+before_script: npm install grunt-install-dependencies
+before_script: npm install grunt-contrib-nodeunit
+before_script: npm install grunt-exec
+before_script: npm install nodeunit
 script: grunt

@@ -4,4 +4,4 @@ node_js:
 before_install: npm install -g grunt-cli
 install:  npm install npm@latest
 before_script: cd ShowTracker 
-before_script: grunt
+script: grunt

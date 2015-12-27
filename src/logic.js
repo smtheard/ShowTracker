@@ -1,4 +1,4 @@
-var addShow = function(showName, numSeasons, numEpisodes) {
+var createShow = function(showName, numSeasons, numEpisodes) {
 	var show = {};
 	show.showName = showName;
 	show.seasons = numSeasons;
@@ -6,4 +6,4 @@ var addShow = function(showName, numSeasons, numEpisodes) {
 	return show;
 }
 
-exports.addShow = addShow;
+exports.createShow = createShow;

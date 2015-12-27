@@ -5,10 +5,8 @@ exports.testCanary = function(test) {
 	test.done();
 };
 
-exports.addShowReturnsJsonObjWithShowData = function(test) {
-	var result = logic.addShow('Breaking Bad', 4, 13);
-	//below is broken for some reason
-	//test.equal({"showName": "Breaking Bad", "seasons": 4, "episodes": 13}, result);
-	test.ok(true);
+exports.createShowReturnsJsonObjWithShowData = function(test) {
+	var result = logic.createShow('Breaking Bad', 4, 13);
+	test.deepEqual({"showName": 'Breaking Bad', "seasons": 4, "episodes": 13}, result);
 	test.done();
 };

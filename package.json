@@ -1,7 +1,6 @@
 {
   "name": "ShowTracker",
   "version": "0.0.1",
-  "private": true,
   "description": "Track Shows!",
   "main": "Gruntfile.js",
   "repository": {
@@ -16,7 +15,7 @@
   "scripts": {
   },
   "devDependencies": {
-    "grunt-contrib-nodeunit": "0.4.1",
-    "grunt-exec": "0.4.6"
+    "grunt-contrib-nodeunit": "^0.4.1",
+    "grunt-exec": "^0.4.6"
   }
 }

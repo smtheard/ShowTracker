@@ -4,6 +4,10 @@
   "private": true,
   "description": "Track Shows!",
   "main": "Gruntfile.js",
+  "repository": {
+    "type": "git", 
+    "url": "https://github.com/smtheard/ShowTracker.git"
+  },
   "directories": {
     "test": "test"
   },

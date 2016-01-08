@@ -1,4 +1,4 @@
-var logic = require('../src/logic.js');
+var logic = require('../src/js/logic.js');
 
 exports.testCanary = function(test) {
 	test.ok(true);

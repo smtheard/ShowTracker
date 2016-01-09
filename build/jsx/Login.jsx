@@ -8,6 +8,7 @@ var Login = React.createClass({
   updatePassword: function(e) {
     this.setState({password: e.target.value});
   },
+
   submitLogin: function(e) {
     e.preventDefault();
     Parse.$ = jQuery;
@@ -26,6 +27,7 @@ var Login = React.createClass({
     });
 
   },
+  
   render: function() {
     return (
       <div className="login_container">

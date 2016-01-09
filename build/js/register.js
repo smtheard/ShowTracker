@@ -17,6 +17,9 @@ $(function() {
     user.signUp(null, {
       success: function(user) {
       // render app component
+        var app = React.createElement(App);
+        ReactDOM.render(app, document.getElementById('app'));
+
       },
       error: function(user, error) {
       // Show the error message somewhere and let the user try again.

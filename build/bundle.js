@@ -49,49 +49,39 @@
 	var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(158);
 
-	var Login = React.createClass({
-	    displayName: 'Login',
+	var Register = React.createClass({
+	  displayName: 'Register',
 
-	    render: function render() {
-	        return React.createElement(
-	            'div',
-	            { className: 'container' },
-	            React.createElement(
-	                'form',
-	                { className: 'form-signin', role: 'form' },
-	                React.createElement(
-	                    'h2',
-	                    { className: 'form-signin-heading' },
-	                    'Please sign in'
-	                ),
-	                React.createElement('input', { type: 'text', name: 'username', className: 'form-control', placeholder: 'Username', required: '', autofocus: '' }),
-	                React.createElement('input', { type: 'password', name: 'password', className: 'form-control', placeholder: 'Password', required: '' }),
-	                React.createElement(
-	                    'div',
-	                    { className: 'checkbox' },
-	                    React.createElement(
-	                        'label',
-	                        null,
-	                        React.createElement('input', { type: 'checkbox', value: 'remember-me' }),
-	                        ' Remember me'
-	                    )
-	                ),
-	                React.createElement(
-	                    'button',
-	                    { className: 'btn btn-lg btn-primary btn-block', type: 'submit' },
-	                    'Sign in'
-	                )
-	            ),
-	            React.createElement(
-	                'a',
-	                { className: 'btn btn-lg btn-primary btn-block', href: 'register.html' },
-	                'Register'
-	            )
-	        );
-	    }
+	  render: function render() {
+	    return React.createElement(
+	      'div',
+	      { className: 'main-container' },
+	      React.createElement(
+	        'form',
+	        { className: 'form-signin', role: 'form' },
+	        React.createElement(
+	          'h2',
+	          { className: 'form-signin-heading' },
+	          'Register'
+	        ),
+	        React.createElement('input', { type: 'text', name: 'username', className: 'form-control', placeholder: 'Username', required: '', autofocus: '' }),
+	        React.createElement('input', { type: 'text', name: 'email', className: 'form-control', placeholder: 'Email', required: '', autofocus: '' }),
+	        React.createElement('input', { type: 'password', name: 'password', className: 'form-control', placeholder: 'Password', required: '' }),
+	        React.createElement(
+	          'div',
+	          null,
+	          React.createElement(
+	            'button',
+	            { className: 'btn btn-lg btn-primary btn-block', type: 'submit' },
+	            'submit'
+	          )
+	        )
+	      )
+	    );
+	  }
 	});
 
-	ReactDOM.render(React.createElement(Login, null), document.getElementById('login'));
+	ReactDOM.render(React.createElement(Register, null), document.getElementById('register'));
 
 /***/ },
 /* 1 */

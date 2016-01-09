@@ -4,9 +4,9 @@ var ReactDOM = require('react-dom');
 var Login = React.createClass({
   render: function() {
     return (
-      <div className="container">
-      <form className="form-signin" role="form">
-          <h2 className="form-signin-heading">Please sign in</h2>
+      <div className="login_container">
+      <form className="form-login" role="form">
+          <h2 className="form-login-heading">Please sign in</h2>
           <input type="text" name="username" className="form-control" placeholder="Username" required="" autofocus=""/>
           <input type="password" name="password" className="form-control" placeholder="Password" required=""/>
           <div className="checkbox">

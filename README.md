@@ -6,6 +6,6 @@ npm run start
 ```
 
 Build bundle (running webpack will work if webpack is installed globally)
-``bash
+```bash
 npm run build
 ```

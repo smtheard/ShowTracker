@@ -1,7 +1,5 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
-var Login = require('./Login.jsx');
-var Register = require('./Register.jsx');
 
 var App = React.createClass({
   render: function() {
@@ -13,4 +11,4 @@ var App = React.createClass({
   }
 });
 
-ReactDOM.render(<App />, document.getElementById('app'));
+module.exports = App;

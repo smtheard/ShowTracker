@@ -18,8 +18,7 @@ var Login = React.createClass({
  
     Parse.User.logIn(username, password, {
         success: function(user) {
-          alert('successful login!');
-          //render app
+          // TODO: render app
         },
         error: function(user, error) {
             console.log(error);
@@ -27,10 +26,13 @@ var Login = React.createClass({
     });
 
   },
-  
+  renderRegister: function(e) {
+    // TODO: render register
+  },
+
   render: function() {
     return (
-      <div className="login_container">
+      <div className="login-container">
         <form className="form-login" role="form">
             <h2 className="form-login-heading">Please Login</h2>
             <input type="text" name="username" onChange={this.updateUsername} className="form-control" placeholder="Username" required="" autofocus=""/>
@@ -42,10 +44,10 @@ var Login = React.createClass({
             </div>
             <button className="btn btn-lg btn-primary btn-block" type="submit" onClick={this.submitLogin}>Login</button>
         </form>
-        <a className="btn btn-lg btn-primary btn-block" href="register.html">Register</a>
+        <a className="btn btn-lg btn-primary btn-block" onClick={this.renderRegister}>Register</a>
       </div>
     );
   }
 });
 
-ReactDOM.render(<Login />, document.getElementById('login'));
+module.exports = Login;

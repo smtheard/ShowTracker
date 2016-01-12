@@ -1,7 +1,7 @@
 var path = require('path');
 var config = {
   entry: {
-    app: './build/jsx/App.jsx'
+    app: './build/jsx/Logic.jsx'
   },
   output: {
     path: path.resolve(__dirname, 'build'),

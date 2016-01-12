@@ -22,11 +22,11 @@ var Register = React.createClass({
     user.set("email", this.state.email);
     user.signUp(null, {
       success: function(user) {
-        // render app component
+        // TODO: render app component
         alert('successfully created account');
       },
       error: function(user, error) {
-        // Show the error message somewhere and let the user try again.
+        // TODO: Show the error message somewhere and let the user try again.
         alert("Error: " + error.code + " " + error.message);
       }
     });
@@ -34,7 +34,7 @@ var Register = React.createClass({
 
   render: function() {
     return (
-      <div className="register_container">
+      <div className="register-container">
         <form className="form-register" role="form">
             <h2 className="form-register-heading">Register</h2>
             <input type="text" name="username" onChange={this.updateUsername} className="form-control" placeholder="Username" required="" autofocus=""/>
@@ -49,4 +49,4 @@ var Register = React.createClass({
   }
 });
 
-ReactDOM.render(<Register />, document.getElementById('register'));
+module.exports = Register;

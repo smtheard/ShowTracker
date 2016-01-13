@@ -9,5 +9,5 @@ var Logic = React.createClass({
 });
 
 ReactDOM.render(<Login />, document.getElementById('login'));
-ReactDOM.render(<Register />, document.getElementById('register'));
-ReactDOM.render(<App />, document.getElementById('app'));
+// ReactDOM.render(<Register />, document.getElementById('register'));
+// ReactDOM.render(<App />, document.getElementById('app'));

@@ -1,14 +1,20 @@
 import bottle, sys
 from bottlereact import BottleReact
 from bottle.ext import beaker
+from config import *
 
 PROD = '--prod' in sys.argv
 
 app = bottle.Bottle()
+
+app.install(plugin)
+
 br = BottleReact(app, prod=PROD)
 
 @app.get('/')
 def root():
+  from models import User
+  print User
   return br.render_html(
     br.Root({'title':'This is root'})
   )
@@ -26,8 +32,6 @@ session_opts = {
   'session.auto': True
 }
 
-app = beaker.middleware.SessionMiddleware(app, session_opts)
-
 def run():
   bottle.debug(not PROD)
   bottle.run(
@@ -39,3 +43,5 @@ def run():
 
 if __name__=='__main__':
   run()
+
+app = beaker.middleware.SessionMiddleware(app, session_opts)

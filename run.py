@@ -1,5 +1,6 @@
 import bottle, sys
 from bottlereact import BottleReact
+from bottle.ext import beaker
 
 PROD = '--prod' in sys.argv
 
@@ -17,6 +18,15 @@ def root():
   return br.render_html(
     br.Login({'name':'World'})
   )
+
+session_opts = {
+  'session.type': 'file',
+  'session.cookie_expires': 300,
+  'session.data_dir': './data',
+  'session.auto': True
+}
+
+app = beaker.middleware.SessionMiddleware(app, session_opts)
 
 def run():
   bottle.debug(not PROD)

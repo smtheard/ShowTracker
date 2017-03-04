@@ -2,6 +2,7 @@ import bottle
 from bottle.ext import sqlalchemy
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker
 from bottlereact import BottleReact
 from bottle.ext import beaker
 
@@ -15,6 +16,9 @@ db_plugin = sqlalchemy.Plugin(
     commit=True, # If it is true, plugin commit changes after route is executed (default True).
     use_kwargs=False # If it is true and keyword is not defined, plugin uses **kwargs argument to inject session database (default False).
 )
+
+Session = sessionmaker(bind=engine)
+sa_session = Session()
 
 app = bottle.Bottle()
 

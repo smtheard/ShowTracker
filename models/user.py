@@ -5,6 +5,7 @@ import bcrypt
 
 class User(config.Base):
   __tablename__ = 'user'
+
   id = sa.Column(sa.Integer, sa.Sequence('id_seq'), primary_key=True)
   user_name = sa.Column(sa.Text)
   password_hash = sa.Column(sa.Text)
@@ -13,7 +14,7 @@ class User(config.Base):
     return self.hash_password(password, self.password_hash) == self.password_hash
 
   def hash_password(self, password, salt=None):
-    return bcrypt.hashpw(password, salt or bcrypt.gensalt())
+    return bcrypt.hashpw(password.encode('utf-8'), salt or bcrypt.gensalt())
 
   def __init__(self, user_name, password):
     password_hash = self.hash_password(password)

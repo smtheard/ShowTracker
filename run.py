@@ -17,9 +17,6 @@ def run():
     reloader=not PROD
   )
 
-if __name__=='__main__':
-  run()
-
 session_opts = {
   'session.type': 'file',
   'session.cookie_expires': 300,
@@ -27,4 +24,11 @@ session_opts = {
   'session.auto': True
 }
 
+Base.metadata.create_all(engine)
+
 app = beaker.middleware.SessionMiddleware(app, session_opts)
+
+if __name__=='__main__':
+  run()
+
+

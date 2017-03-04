@@ -1,6 +1,0 @@
-language: node_js
-node_js:
-  - "4.2"
-before_install: npm install -g grunt-cli
-install:  npm install npm@latest grunt istanbul grunt-istanbul nodeunit grunt-install-dependencies grunt-contrib-nodeunit grunt-exec
-script: grunt

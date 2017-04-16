@@ -7,11 +7,11 @@ class User(config.Base):
   __tablename__ = 'user'
 
   id = sa.Column(sa.Integer, sa.Sequence('id_seq'), primary_key=True)
-  username = sa.Column(sa.Text)
+  username = sa.Column(sa.Text, unique=True, nullable=False, index=True)
   password_hash = sa.Column(sa.Text)
 
   def authenticate(self, password):
-    return self.hash_password(password, self.password_hash) == self.password_hash
+    return self.hash_password(password, self.password_hash.encode('utf-8')) == self.password_hash
 
   def hash_password(self, password, salt=None):
     return bcrypt.hashpw(password.encode('utf-8'), salt or bcrypt.gensalt())

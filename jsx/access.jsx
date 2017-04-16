@@ -9,17 +9,23 @@ var Access = React.createClass({
   },
 
   onFailure: function(data){
-    helpers.toaster(data.error_message);
+    helpers.toaster(data.error_message || "Something went wrong.");
   },
 
   onSubmit: function() {
+    var that = this;
     $.ajax({
        type: 'POST',
        contentType: 'application/json',
        url: this.props.callback_route,
        data: JSON.stringify(this.state),
-       success: this.onSuccess,
-       failure: this.onFailure
+       success: function(data) {
+          if(data.success)
+            that.onSuccess(data);
+          else
+            that.onFailure(data);
+        },
+       error: this.onFailure
     });
   },
 

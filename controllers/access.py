@@ -13,11 +13,12 @@ def login():
         "title": "Login"
         })
       ]
-    )
+    ),
+    title="Slothy"
   )
 
 @app.post('/login')
-def login_submit():
+def login_submit(session):
   username = bottle.request.json["username"]
   password = bottle.request.json["password"]
   
@@ -27,6 +28,7 @@ def login_submit():
     return {"success": False, "error_message": "no user with username: " + username}
 
   if(user.authenticate(password)):
+    session["user_id"] = user.id
     return {"success": True}
   else:
     return {"success": False, "error_message": "invalid password"}
@@ -44,14 +46,16 @@ def register():
         "title": "Register"
         })
       ]
-    )
+    ),
+    title="Slothy"
   )
 
 @app.post('/register')
-def register_submit():
+def register_submit(session):
   username = bottle.request.json["username"]
   password = bottle.request.json["password"]
   user = User(username=username, password=password)
   sa_session.add(user)
   sa_session.commit()
-
+  session["user_id"] = user.id
+  return {"success": True}

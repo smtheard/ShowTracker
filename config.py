@@ -1,4 +1,5 @@
 import bottle
+import bottle_session
 from bottle.ext import sqlalchemy
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
@@ -7,7 +8,7 @@ from bottlereact import BottleReact
 from bottle.ext import beaker
 
 Base = declarative_base()
-engine = create_engine('sqlite:///:memory:', echo=True)
+engine = create_engine('postgresql+psycopg2://stefan:@localhost:5432/slothy_development', echo=True)
 db_plugin = sqlalchemy.Plugin(
     engine, # SQLAlchemy engine created with create_engine function.
     Base.metadata, # SQLAlchemy metadata, required only if create=True.
@@ -23,5 +24,6 @@ sa_session = Session()
 app = bottle.Bottle()
 
 app.install(db_plugin)
+app.install(bottle_session.SessionPlugin(cookie_lifetime=31540000)) # 1 year in seconds
 
 br = BottleReact(app, prod=False)

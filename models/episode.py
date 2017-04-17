@@ -9,7 +9,7 @@ class Episode(config.Base):
   number = sa.Column(sa.Integer)
   description = sa.Column(sa.Text)
   image_src = sa.Column(sa.Text)
-  show_id = sa.Column(sa.Integer, ForeignKey("show.id"), nullable=False)
+  show_id = sa.Column(sa.Integer, sa.ForeignKey("show.id"), nullable=False)
 
   def __init__(self, title, number, show_id,  description=None):
     self.title = title

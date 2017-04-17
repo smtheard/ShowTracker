@@ -10,8 +10,8 @@ class Show(config.Base):
   image_src = sa.Column(sa.Text)
   status = sa.Column(sa.Text)
   country = sa.Column(sa.Text)
-  network_id = sa.Column(sa.Integer, ForeignKey("network.id"))
-  genre_id = sa.Column(sa.Integer, ForeignKey("genre.id"))
+  network_id = sa.Column(sa.Integer, sa.ForeignKey("network.id"))
+  genre_id = sa.Column(sa.Integer, sa.ForeignKey("genre.id"))
 
   def __init__(self, title, description=None, image_src=None, status=None, country=None, network_id=None, genre_id=None):
     self.title = title

@@ -10,12 +10,20 @@ class Episode(config.Base):
   description = sa.Column(sa.Text)
   image_src = sa.Column(sa.Text)
   show_id = sa.Column(sa.Integer, sa.ForeignKey("show.id"), nullable=False)
+  first_air = sa.Column(sa.Text)
+  season = sa.Column(sa.Integer)
+  is_special = sa.Column(sa.Boolean)
+  last_cached_at = sa.Column(sa.DateTime(timezone=True))
+  tvmaze_id = sa.Column(sa.Integer)
+  tvmaze_url = sa.Column(sa.Text)
 
-  def __init__(self, title, number, show_id,  description=None):
-    self.title = title
-    self.number = number
-    self.description = description
-    self.show_id = show_id
+
+  def __init__(self, **kwargs):
+    # this will blow up if passed in a key that doesn't exist as an attribute
+    # it also blows up if the ORM attempts to save without setting a title.
+    # both are intended.
+    for key, value in kwargs.items():
+      setattr(self, key, value)
 
   def __repr__(self):
     return "<Episode('%d', '%s')>" % (self.id, self.title)

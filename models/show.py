@@ -11,16 +11,24 @@ class Show(config.Base):
   status = sa.Column(sa.Text)
   country = sa.Column(sa.Text)
   network_id = sa.Column(sa.Integer, sa.ForeignKey("network.id"))
-  genre_id = sa.Column(sa.Integer, sa.ForeignKey("genre.id"))
+  thetvdb_id = sa.Column(sa.Integer)
+  tvrage_id = sa.Column(sa.Integer)
+  imdb_id = sa.Column(sa.Integer)
+  tvmaze_id = sa.Column(sa.Integer)
+  tvmaze_img_src = sa.Column(sa.Text)
+  tvmaze_rating = sa.Column(sa.Text)
+  premiere_date = sa.Column(sa.DateTime(timezone=True))
+  schedule_days = sa.Column(sa.Text)
+  schedule_time = sa.Column(sa.Text)
+  tvmaze_url = sa.Column(sa.Text)
+  last_cached_at = sa.Column(sa.DateTime(timezone=True))
 
-  def __init__(self, title, description=None, image_src=None, status=None, country=None, network_id=None, genre_id=None):
-    self.title = title
-    self.description = description
-    self.image_src = image_src
-    self.status = status
-    self.country = country
-    self.network_id = network_id
-    self.genre_id = genre_id
+  def __init__(self, **kwargs):
+    # this will blow up if passed in a key that doesn't exist as an attribute
+    # it also blows up if the ORM attempts to save without setting a title.
+    # both are intended.
+    for key, value in kwargs.items():
+      setattr(self, key, value)
 
-  def __repr__(self):
-    return "<Show('%d', '%s')>" % (self.id, self.title)
+  # def __repr__(self):
+  #   return "<Show('%d', '%s')>" % (self.id, self.title)

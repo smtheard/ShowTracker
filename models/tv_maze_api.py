@@ -2,18 +2,23 @@ from models.show import Show
 from models.episode import Episode
 from models.network import Network
 from models.genre import Genre
+from models.show_genre import ShowGenre
+
+from models.sql_alchemy_helper import SQLAlchemyHelper as sa_helper
+from config import sa_session
 
 import datetime
 import pytvmaze
 
-class TVMazeAPI():
+class TVMazeAPI(object):
 
   tvm = pytvmaze.TVMaze()
 
-  def fetch(self, show_name):
-    tvm_show = self.tvm.get_show(show_name=show_name)
-    dump(tvm_show)
-    dump(tvm_show.episodes[1])
+  @staticmethod
+  def fetch(show_name):
+    tvm_show = TVMazeAPI.tvm.get_show(show_name=show_name)
+
+    network, was_created = sa_helper.get_or_create(sa_session, Network, name=tvm_show.network.name)
 
     show = Show(thetvdb_id=tvm_show.externals.get("thetvdb"),
                 tvrage_id=tvm_show.externals.get("tvrage"),
@@ -22,18 +27,20 @@ class TVMazeAPI():
                 title=tvm_show.name,
                 description=tvm_show.summary,
                 tvmaze_img_src=tvm_show.image.get("original"),
-                tvmaze_rating=tvm_show.rating,
+                tvmaze_rating=tvm_show.rating.get("average"),
                 premiere_date=tvm_show.premiered,
                 schedule_days=' '.join(tvm_show.schedule.get("days") or []),
                 schedule_time=tvm_show.schedule.get("time"),
                 status=tvm_show.status,
-                tvm_url=tvm_show.url,
-                last_cached_at=datetime.datetime.now()
-                    # query db for network, create if not exists
-                    # add network_id to show
+                tvmaze_url=tvm_show.url,
+                last_cached_at=datetime.datetime.now(),
+                network_id=network.id
                 )
-    # save show so we have a show_id
-    for tvm_episode in show.episodes:
+
+    sa_session.add(show)
+    sa_session.flush()
+
+    for tvm_episode in tvm_show.episodes:
       episode = Episode(
         first_air=tvm_episode.airstamp,
         number=tvm_episode.episode_number,
@@ -42,18 +49,18 @@ class TVMazeAPI():
         is_special=tvm_episode.special,
         description=tvm_episode.summary,
         title=tvm_episode.title,
-        tvm_url=tvm.url,
+        tvmaze_url=tvm_episode.url,
         last_cached_at=datetime.datetime.now(),
         show_id=show.id
         )
-      # save episode
+      sa_session.add(episode)
 
-    for tvm_genre in show.genres:
-      # query db for genre, create if not exists
-      # create ShowGenre if not exists
+    for tvm_genre in tvm_show.genres:
+      genre, was_created = sa_helper.get_or_create(sa_session, Genre, name=tvm_genre)
+      sa_helper.get_or_create(sa_session, ShowGenre, show_id=show.id, genre_id=genre.id)
 
 
-
+    sa_session.commit()
 
 def dump(obj):
   for attr in dir(obj):

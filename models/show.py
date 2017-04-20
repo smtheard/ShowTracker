@@ -13,7 +13,7 @@ class Show(config.Base):
   network_id = sa.Column(sa.Integer, sa.ForeignKey("network.id"))
   thetvdb_id = sa.Column(sa.Integer)
   tvrage_id = sa.Column(sa.Integer)
-  imdb_id = sa.Column(sa.Integer)
+  imdb_id = sa.Column(sa.Text)
   tvmaze_id = sa.Column(sa.Integer)
   tvmaze_img_src = sa.Column(sa.Text)
   tvmaze_rating = sa.Column(sa.Text)

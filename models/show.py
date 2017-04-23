@@ -21,6 +21,7 @@ class Show(config.Base):
   schedule_days = sa.Column(sa.Text)
   schedule_time = sa.Column(sa.Text)
   tvmaze_url = sa.Column(sa.Text)
+  tvmaze_updated_at = sa.Column(sa.DateTime(timezone=True))
   last_cached_at = sa.Column(sa.DateTime(timezone=True))
 
   def __init__(self, **kwargs):

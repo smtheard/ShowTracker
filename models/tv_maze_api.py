@@ -3,7 +3,8 @@ from models.episode import Episode
 from models.network import Network
 from models.genre import Genre
 from models.show_genre import ShowGenre
-
+from models.utc import UTC
+utc = UTC()
 from models.sql_alchemy_helper import SQLAlchemyHelper as sa_helper
 from config import sa_session
 
@@ -15,26 +16,29 @@ class TVMazeAPI(object):
   tvm = pytvmaze.TVMaze()
 
   @staticmethod
-  def fetch(show_name):
-    tvm_show = TVMazeAPI.tvm.get_show(show_name=show_name)
+  def fetch(show_name=None, tvmaze_id=None):
+    tvm_show = TVMazeAPI.tvm.get_show(show_name=show_name, maze_id=tvmaze_id)
+    
+    network = None
+    if(tvm_show.network):
+      network, was_created = sa_helper.get_or_create(sa_session, Network, name=tvm_show.network.name)
 
-    network, was_created = sa_helper.get_or_create(sa_session, Network, name=tvm_show.network.name)
-
-    show = Show(thetvdb_id=tvm_show.externals.get("thetvdb"),
-                tvrage_id=tvm_show.externals.get("tvrage"),
-                imdb_id=tvm_show.externals.get("imdb"),
+    show = Show(thetvdb_id=tvm_show.externals and tvm_show.externals.get("thetvdb"),
+                tvrage_id=tvm_show.externals and tvm_show.externals.get("tvrage"),
+                imdb_id=tvm_show.externals and tvm_show.externals.get("imdb"),
                 tvmaze_id=tvm_show.maze_id,
                 title=tvm_show.name,
                 description=tvm_show.summary,
-                tvmaze_img_src=tvm_show.image.get("original"),
-                tvmaze_rating=tvm_show.rating.get("average"),
+                tvmaze_img_src=tvm_show.image and tvm_show.image.get("original"),
+                tvmaze_rating=tvm_show.rating and tvm_show.rating.get("average"),
                 premiere_date=tvm_show.premiered,
-                schedule_days=' '.join(tvm_show.schedule.get("days") or []),
-                schedule_time=tvm_show.schedule.get("time"),
+                schedule_days=' '.join(tvm_show.schedule and tvm_show.schedule.get("days") or []),
+                schedule_time=tvm_show.schedule and tvm_show.schedule.get("time"),
                 status=tvm_show.status,
                 tvmaze_url=tvm_show.url,
-                last_cached_at=datetime.datetime.now(),
-                network_id=network.id
+                last_cached_at=datetime.datetime.now(utc),
+                network_id=network and network.id,
+                tvmaze_updated_at=datetime.datetime.fromtimestamp(tvm_show.updated, utc)
                 )
 
     sa_session.add(show)
@@ -59,8 +63,22 @@ class TVMazeAPI(object):
       genre, was_created = sa_helper.get_or_create(sa_session, Genre, name=tvm_genre)
       sa_helper.get_or_create(sa_session, ShowGenre, show_id=show.id, genre_id=genre.id)
 
-
     sa_session.commit()
+
+  @staticmethod
+  def sync_cache(cache_delta=24, re_cache_all=False): #cache_delta is in hours
+    tvm_updates = pytvmaze.show_updates().updates
+    dump(tvm_updates[27408])
+
+    show_objects = sa_session.query(Show).filter(Show.tvmaze_id.in_(tvm_updates.keys()))
+    show_dict = {show.id: show for show in show_objects}
+
+    for tvm_id, update in tvm_updates.items():
+      show = show_dict.get(tvm_id)
+      if(show is None):
+        TVMazeAPI.fetch(tvmaze_id=tvm_id)
+      elif(datetime.datetime.fromtimestamp(update.seconds_since_epoch, utc) > show.last_cached_at):
+        TVMazeAPI.refresh(tvmaze_id=tvm_id)
 
 def dump(obj):
   for attr in dir(obj):

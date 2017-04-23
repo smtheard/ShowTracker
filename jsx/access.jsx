@@ -1,4 +1,3 @@
-
 var Access = React.createClass({
   getInitialState: function() {
     return {username: '', password: ''};

@@ -1,16 +1,32 @@
 var ShowCard = React.createClass({
+  getInitialState: function() {
+    return {expanded: false}
+  },
+
+  truncate: function(str) {
+    var truncated = str.split(/\s+/).slice(0,25).join(" ");
+    if(truncated.length < str.length)
+      return truncated + "...";
+    else
+      return truncated;
+  },
+
+  toggleDesc: function(event) {
+    this.setState({expanded: !this.state.expanded})
+  },
+
   render: function() {
-    var style = { color:"#fff", height:"176px", background:"url('" + this.props.image_src + "')" }
     return (
-      <div className="demo-card-wide mdl-card mdl-shadow--2dp" style={{width: "512px"}}>
-        <div className="mdl-card__title" style={style}>
+      <div className="demo-card-wide mdl-card mdl-shadow--2dp"
+           style={{height: "340px", width: "370px", display:"inline-block", padding:"5px", margin:"5px"}}>
+        <div className="mdl-card__title"
+             style={{ color:"#fff", height:"176px", background:"url('" + this.props.image_src + "')" }}>
           <h2 className="mdl-card__title-text">{this.props.title}</h2>
         </div>
-        <div className="mdl-card__supporting-text">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-          Mauris sagittis pellentesque lacus eleifend lacinia...
+        <div onClick={this.toggleDesc} className="mdl-card__supporting-text" style={{height: "75px", overflowY:"auto"}}>
+          {this.state.expanded ? this.props.description : this.truncate(this.props.description)}
         </div>
-        <div className="mdl-card__actions mdl-card--border">
+        <div className="mdl-card__actions mdl-card--border" style={{bottom: "0"}}>
           <a className="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
             Follow
           </a>

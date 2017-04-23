@@ -25,7 +25,7 @@ class Show(config.Base):
   last_cached_at = sa.Column(sa.DateTime(timezone=True))
 
   def to_card_dict(self):
-    return { "title": self.title, "image_src": self.tvmaze_img_src } 
+    return { "title": self.title, "image_src": self.tvmaze_img_src, "description": self.description } 
 
   def __init__(self, **kwargs):
     # this will blow up if passed in a key that doesn't exist as an attribute

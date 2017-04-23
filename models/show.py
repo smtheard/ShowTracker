@@ -24,6 +24,9 @@ class Show(config.Base):
   tvmaze_updated_at = sa.Column(sa.DateTime(timezone=True))
   last_cached_at = sa.Column(sa.DateTime(timezone=True))
 
+  def to_card_dict(self):
+    return { "title": self.title, "image_src": self.tvmaze_img_src } 
+
   def __init__(self, **kwargs):
     # this will blow up if passed in a key that doesn't exist as an attribute
     # it also blows up if the ORM attempts to save without setting a title.

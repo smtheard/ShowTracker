@@ -4,7 +4,7 @@ import sqlalchemy as sa
 class Episode(config.Base):
   __tablename__ = 'episode'
 
-  id = sa.Column(sa.Integer, sa.Sequence('id_seq'), primary_key=True)
+  id = sa.Column(sa.Integer, sa.Sequence('episode_id_seq'), primary_key=True)
   title = sa.Column(sa.Text)
   number = sa.Column(sa.Integer)
   description = sa.Column(sa.Text)

@@ -6,7 +6,7 @@ import bcrypt
 class User(config.Base):
   __tablename__ = 'user'
 
-  id = sa.Column(sa.Integer, sa.Sequence('id_seq'), primary_key=True)
+  id = sa.Column(sa.Integer, sa.Sequence('user_id_seq'), primary_key=True)
   username = sa.Column(sa.Text, unique=True, nullable=False, index=True)
   password_hash = sa.Column(sa.Text)
 

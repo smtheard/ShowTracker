@@ -4,7 +4,7 @@ import sqlalchemy as sa
 class Show(config.Base):
   __tablename__ = 'show'
 
-  id = sa.Column(sa.Integer, sa.Sequence('id_seq'), primary_key=True)
+  id = sa.Column(sa.Integer, sa.Sequence('show_id_seq'), primary_key=True)
   title = sa.Column(sa.Text, nullable=False, index=True)
   description = sa.Column(sa.Text)
   image_src = sa.Column(sa.Text)

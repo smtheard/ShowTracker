@@ -4,7 +4,7 @@ import sqlalchemy as sa
 class ShowGenre(config.Base):
   __tablename__ = 'show_genre'
 
-  id = sa.Column(sa.Integer, sa.Sequence('id_seq'), primary_key=True)
+  id = sa.Column(sa.Integer, sa.Sequence('show_genre_id_seq'), primary_key=True)
   show_id = sa.Column(sa.Integer, nullable=False)
   genre_id = sa.Column(sa.Integer, nullable=False)
 

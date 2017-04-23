@@ -4,7 +4,7 @@ import sqlalchemy as sa
 class Network(config.Base):
   __tablename__ = 'network'
 
-  id = sa.Column(sa.Integer, sa.Sequence('id_seq'), primary_key=True)
+  id = sa.Column(sa.Integer, sa.Sequence('network_id_seq'), primary_key=True)
   name = sa.Column(sa.Text, nullable=False)
   image_src = sa.Column(sa.Text)
 

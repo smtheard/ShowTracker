@@ -66,12 +66,11 @@ class TVMazeAPI(object):
     sa_session.commit()
 
   @staticmethod
-  def sync_cache(cache_delta=24, re_cache_all=False): #cache_delta is in hours
+  def sync_cache(re_cache_all=False):
     tvm_updates = pytvmaze.show_updates().updates
-    dump(tvm_updates[27408])
 
     show_objects = sa_session.query(Show).filter(Show.tvmaze_id.in_(tvm_updates.keys()))
-    show_dict = {show.id: show for show in show_objects}
+    show_dict = {show.tvmaze_id: show for show in show_objects}
 
     for tvm_id, update in tvm_updates.items():
       show = show_dict.get(tvm_id)

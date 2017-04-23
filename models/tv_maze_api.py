@@ -3,9 +3,9 @@ from models.episode import Episode
 from models.network import Network
 from models.genre import Genre
 from models.show_genre import ShowGenre
-from models.utc import UTC
+from util.utc import UTC
 utc = UTC()
-from models.sql_alchemy_helper import SQLAlchemyHelper as sa_helper
+from util.sql_alchemy_helper import SQLAlchemyHelper as sa_helper
 from config import sa_session
 
 import datetime

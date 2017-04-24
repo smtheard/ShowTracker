@@ -80,7 +80,3 @@ class TVMazeAPI(object):
         TVMazeAPI.fetch(tvmaze_id=tvm_id)
       elif(datetime.datetime.fromtimestamp(update.seconds_since_epoch, utc) > show.last_cached_at):
         TVMazeAPI.refresh(tvmaze_id=tvm_id)
-
-def dump(obj):
-  for attr in dir(obj):
-    print "obj.%s = %s" % (attr, getattr(obj, attr))

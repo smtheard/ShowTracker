@@ -25,8 +25,31 @@ class Show(config.Base):
   tvmaze_updated_at = sa.Column(sa.DateTime(timezone=True))
   last_cached_at = sa.Column(sa.DateTime(timezone=True))
 
+  episodes = sa.orm.relationship("Episode", backref="show")
+  network = sa.orm.relationship("Network", uselist=False, backref="show")
+
   def to_card_dict(self):
-    return { "title": self.title, "image_src": self.tvmaze_img_src, "description": self.description } 
+    return { "title": self.title,
+             "image_src": self.tvmaze_img_src,
+             "description": self.description,
+             "path": self.path() }
+
+  def to_page_dict(self):
+    return { "title": self.title,
+             "image_src": self.tvmaze_img_src,
+             "description": self.description,
+             "premiere_date": self.premiere_date.strftime("%A %d, %B %Y"),
+             "status": self.status,
+             "country": self.country,
+             "network": self.network.name,
+             "imdb_url": "https://www.imdb.com/title/" + self.imdb_id,
+             "schedule": self.schedule() }
+
+  def schedule(self):
+    return self.schedule_days.join(", ") + self.schedule_time
+
+  def path(self):
+    return "/show/" + self.slug 
 
   def __init__(self, **kwargs):
     # this will blow up if passed in a key that doesn't exist as an attribute

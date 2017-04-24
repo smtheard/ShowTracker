@@ -12,8 +12,8 @@ var BaseLayout = React.createClass({
             </nav>
           </div>
         </header>
-        <main className="mdl-layout__content" style={{"padding": "24px", "flex": "none"}}>
-          <div className="page-content">{this.props.children}</div>
+        <main style={{maxWidth: "1140px", padding: "24px"}}>
+          {this.props.children}
         </main>
       </div>
     )

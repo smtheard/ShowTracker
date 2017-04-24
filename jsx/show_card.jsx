@@ -32,8 +32,7 @@ var ShowCard = React.createClass({
                style={{ cursor: "pointer", position: "relative", padding: 0, color: "#fff", height: "176px", background: "url('" + this.props.image_src + "')" }}
                onMouseOver={this.increaseOpacity}
                onMouseLeave={this.decreaseOpacity}>
-            <div 
-                 style={{position: "absolute", background: "rgba(0, 0, 0, 0."+ this.state.opacity + ")", width: this.props.width, bottom: 0, padding: "10px"}}>
+            <div style={{position: "absolute", background: "rgba(0, 0, 0, 0."+ this.state.opacity + ")", width: this.props.width, bottom: 0, padding: "10px"}}>
               <h2 className="mdl-card__title-text">{this.props.title}</h2>
             </div>
           </div>

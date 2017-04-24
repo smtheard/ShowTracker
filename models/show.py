@@ -6,6 +6,7 @@ class Show(config.Base):
 
   id = sa.Column(sa.Integer, sa.Sequence('show_id_seq'), primary_key=True)
   title = sa.Column(sa.Text, nullable=False, index=True)
+  slug = sa.Column(sa.Text, nullable=False, index=True, unique=True)
   description = sa.Column(sa.Text)
   image_src = sa.Column(sa.Text)
   status = sa.Column(sa.Text)

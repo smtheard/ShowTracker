@@ -14,3 +14,16 @@ class SQLAlchemyHelper(object):
       session.add(instance)
       session.flush()
       return instance, True
+
+  @staticmethod
+  def generate_slug(session, model, slug, number=None):
+    if number:
+      current_slug = slug + "-" + str(number)
+    else:
+      current_slug = slug
+
+    instance = session.query(model).filter_by(slug=current_slug).first()
+    if(not instance):
+      return current_slug
+    else:
+      return SQLAlchemyHelper.generate_slug(session, model, current_slug, (number and number + 1) or 2)

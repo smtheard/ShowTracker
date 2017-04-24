@@ -10,6 +10,7 @@ from config import sa_session
 
 import datetime
 import pytvmaze
+import slugify
 
 class TVMazeAPI(object):
 
@@ -28,6 +29,7 @@ class TVMazeAPI(object):
                 imdb_id=tvm_show.externals and tvm_show.externals.get("imdb"),
                 tvmaze_id=tvm_show.maze_id,
                 title=tvm_show.name,
+                slug=sa_helper.generate_slug(sa_session, Show, slugify.slugify(tvm_show.name)),
                 description=tvm_show.summary,
                 tvmaze_img_src=tvm_show.image and tvm_show.image.get("original"),
                 tvmaze_rating=tvm_show.rating and tvm_show.rating.get("average"),

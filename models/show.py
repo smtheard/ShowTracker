@@ -1,5 +1,6 @@
 import config
 import sqlalchemy as sa
+import datetime as dt
 
 class Show(config.Base):
   __tablename__ = 'show'
@@ -38,7 +39,7 @@ class Show(config.Base):
     return { "title": self.title,
              "image_src": self.tvmaze_img_src,
              "description": self.description,
-             "premiere_date": self.premiere_date.strftime("%A %d, %B %Y"),
+             "premiere_date": self.premiere_date.strftime("%B %d, %Y"),
              "status": self.status,
              "country": self.country,
              "network": self.network.name,
@@ -46,7 +47,7 @@ class Show(config.Base):
              "schedule": self.schedule() }
 
   def schedule(self):
-    return self.schedule_days.join(", ") + self.schedule_time
+    return self.schedule_days + " " + dt.datetime.strptime(self.schedule_time, "%H:%M").strftime("%I:%M %p") + " (EST)"
 
   def path(self):
     return "/show/" + self.slug 

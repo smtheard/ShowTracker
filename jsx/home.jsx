@@ -32,7 +32,6 @@ var Home = React.createClass({
   },
 
   render: function() {
-    console.log(this.state.shows);
     var show_cards = this.state.shows.map(show => {
       return (<bottlereact.ShowCard {...show} width="370"/>);
     });

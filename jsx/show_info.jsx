@@ -1,3 +1,5 @@
+// require track_button.jsx
+
 var ShowInfo = React.createClass({
   getInitialState: function() {
     return {};
@@ -20,7 +22,8 @@ var ShowInfo = React.createClass({
 
   render: function() {
     return (
-      <div className="mdl-cell mdl-cell--4-col">
+      <div className="mdl-cell mdl-cell--4-col" style={{position:"relative", height: "340px"}}>
+        <bottlereact.TrackButton show_id={this.props.show_id} style={{width: "100%"}} />
         <table className="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp" style={{width: "100%", tableLayout:"fixed"}}>
             {this.nullableRow("Premiere Date", this.props.premiere_date)}
             {this.nullableRow("Status", this.props.status)}
@@ -28,6 +31,12 @@ var ShowInfo = React.createClass({
             {this.nullableRow("Network", this.props.network_name)}
             {this.nullableRow("Schedule", this.props.schedule)}
         </table>
+        <a style={{position: "absolute", right: 0, bottom: 0, margin: "5px" }}
+           target="_blank" rel="noopener noreferrer" href={this.props.imdb_url}>
+          <img src="http://ia.media-imdb.com/images/M/MV5BMTk3ODA4Mjc0NF5BMl5BcG5nXkFtZTgwNDc1MzQ2OTE@._V1_.png" 
+               alt="IMDB"
+               style={{height:"28px", width:"60px"}}/>
+        </a>
       </div>
     );
   }

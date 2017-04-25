@@ -30,13 +30,15 @@ class Show(config.Base):
   network = sa.orm.relationship("Network", uselist=False, backref="show")
 
   def to_card_dict(self):
-    return { "title": self.title,
+    return { "show_id": self.id,
+             "title": self.title,
              "image_src": self.tvmaze_img_src,
              "description": self.description,
              "path": self.path() }
 
   def to_page_dict(self):
-    return { "title": self.title,
+    return { "show_id": self.id,
+             "title": self.title,
              "image_src": self.tvmaze_img_src,
              "description": self.description,
              "premiere_date": self.premiere_date.strftime("%B %d, %Y"),

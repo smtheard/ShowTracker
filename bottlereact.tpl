@@ -16,7 +16,7 @@
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"
             integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
             crossorigin="anonymous"></script>
-    <script src="static/js/helpers.js"></script>
+    <script src="http://localhost:8080/static/js/helpers.js"></script>
   </head>
 
   <body>

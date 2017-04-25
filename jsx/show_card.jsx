@@ -1,3 +1,5 @@
+// require track_button.jsx
+
 var ShowCard = React.createClass({
   getInitialState: function() {
     return {expanded: false, opacity: 3};
@@ -26,7 +28,7 @@ var ShowCard = React.createClass({
   render: function() {
     return (
       <div className="mdl-card mdl-shadow--2dp" 
-           style={{height: "340px", width: this.props.width, display: "inline-block", margin: "5px"}}>
+           style={{height: "320px", width: this.props.width, display: "inline-block", margin: "5px"}}>
         <a href={this.props.path}>
           <div className="mdl-card__title"
                style={{ cursor: "pointer", position: "relative", padding: 0, color: "#fff", height: "176px", background: "url('" + this.props.image_src + "')" }}
@@ -40,14 +42,10 @@ var ShowCard = React.createClass({
         <div onClick={this.toggleDesc} className="mdl-card__supporting-text" style={{height: "75px", overflowY: "auto"}}>
           {this.state.expanded ? this.props.description : this.truncate(this.props.description)}
         </div>
-        <div className="mdl-card__actions mdl-card--border">
-          <a className="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-            Follow
-          </a>
-        </div>
+        <bottlereact.TrackButton show_id={this.props.show_id} style={{width: "100%"}}/>
       </div>
-    )
+    );
   }
-})
+});
 
-bottlereact._register('ShowCard', ShowCard)
+bottlereact._register('ShowCard', ShowCard);

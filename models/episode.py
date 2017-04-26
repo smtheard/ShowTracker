@@ -1,6 +1,15 @@
 import config
 import sqlalchemy as sa
 
+from datetime import datetime,timedelta
+def dt_parse(t):
+    ret = datetime.strptime(t[0:16],'%Y-%m-%dT%H:%M')
+    if t[18]=='+':
+        ret-=timedelta(hours=int(t[19:22]),minutes=int(t[23:]))
+    elif t[18]=='-':
+        ret+=timedelta(hours=int(t[19:22]),minutes=int(t[23:]))
+    return ret
+
 class Episode(config.Base):
   __tablename__ = 'episode'
 
@@ -23,8 +32,9 @@ class Episode(config.Base):
       "title": self.title,
       "description": self.description,
       "image_src": self.image_src,
-      "first_air": self.first_air,
-      "is_special": self.is_special
+      "first_air": dt_parse(self.first_air).strftime("%B %d, %Y"), # self.premiere_date.strftime("%B %d, %Y")
+      "is_special": self.is_special,
+      "number": self.number
     }
   def __init__(self, **kwargs):
     # this will blow up if passed in a key that doesn't exist as an attribute

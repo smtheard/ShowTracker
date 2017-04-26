@@ -1,5 +1,6 @@
 // require show_card.jsx
 // require show_info.jsx
+// require season.jsx
 
 var ShowPage = React.createClass({
   getInitialState: function() {
@@ -7,6 +8,9 @@ var ShowPage = React.createClass({
   },
 
   render: function() {
+    var seasons = Object.keys(this.props.episodes_by_season).sort((a, b) => b - a).map( season => {
+      return <bottlereact.Season number={season} episodes={this.props.episodes_by_season[season]} />
+    });
     return (
       <div className="mdl-grid">
         <div className="mdl-cell mdl-cell--8-col mdl-shadow--2dp"
@@ -30,8 +34,7 @@ var ShowPage = React.createClass({
           network_name={this.props.network_name}
           imdb_url={this.props.imdb_url}
           schedule={this.props.schedule} />
-        <div className="mdl-cell mdl-cell--12-col mdl-card mdl-shadow--2dp">
-        </div>
+        {seasons}
       </div>
     )
   }

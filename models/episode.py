@@ -17,7 +17,15 @@ class Episode(config.Base):
   tvmaze_id = sa.Column(sa.Integer)
   tvmaze_url = sa.Column(sa.Text)
 
-
+  def to_dict(self):
+    return {
+      "id": self.id,
+      "title": self.title,
+      "description": self.description,
+      "image_src": self.image_src,
+      "first_air": self.first_air,
+      "is_special": self.is_special
+    }
   def __init__(self, **kwargs):
     # this will blow up if passed in a key that doesn't exist as an attribute
     # it also blows up if the ORM attempts to save without setting a title.
@@ -26,4 +34,4 @@ class Episode(config.Base):
       setattr(self, key, value)
 
   def __repr__(self):
-    return "<Episode('%d', '%s')>" % (self.id, self.title)
+    return "<Episode('%d', '%s', Season: '%d')>" % (self.id, self.title, self.season)

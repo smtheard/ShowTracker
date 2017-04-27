@@ -20,11 +20,27 @@ var ShowInfo = React.createClass({
     );
   },
 
+  nextEpisode: function() {
+    if(this.props.status == "Ended")
+      return "";
+    return (
+      <tr>
+        <td className="mdl-data-table__cell--non-numeric" style={{whiteSpace: "normal", wordWrap:"break-word", textAlign:"right"}}>
+          Next Episode:
+        </td>
+        <td className="mdl-data-table__cell--non-numeric" style={{whiteSpace: "normal", wordWrap:"break-word", textAlign:"left"}}>
+          {this.props.next_episode ? this.props.next_episode : "TBA"}
+        </td>
+      </tr>
+    );
+  },
+
   render: function() {
     return (
       <div className="mdl-cell mdl-cell--4-col" style={{position:"relative", height: "340px"}}>
         <bottlereact.TrackButton show_id={this.props.show_id} style={{width: "100%"}} />
         <table className="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp" style={{width: "100%", tableLayout:"fixed"}}>
+            {this.nextEpisode()}
             {this.nullableRow("Premiere Date", this.props.premiere_date)}
             {this.nullableRow("Status", this.props.status)}
             {this.nullableRow("Country", this.props.country)}

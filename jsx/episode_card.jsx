@@ -1,8 +1,9 @@
 // require episode_card.jsx
+// require watch_button.jsx
 
 var EpisodeCard = React.createClass({
   getInitialState: function() {
-    return {};
+    return {watched: false};
   },
 
   render: function() {
@@ -14,8 +15,15 @@ var EpisodeCard = React.createClass({
         <div className="mdl-card__title" style={{padding: "0px", marginLeft: "16px"}}>
           {this.props.title}
         </div>
+        <div className="mdl-card__supporting-text" style={{margin: 0, padding: 0}}>
+          <bottlereact.WatchButton show_id={this.props.show_id} episode_number={this.props.number} />
+        </div>
         <div className="mdl-card__supporting-text" style={{overflowY: "auto"}}>
           Air Date: {this.props.first_air}
+        </div>
+
+        <div className="mdl-card__supporting-text" style={{overflowY: "auto"}}>
+          Description: {this.props.description}
         </div>
       </div>
     );

@@ -1,6 +1,7 @@
 // require show_card.jsx
 // require show_info.jsx
 // require season.jsx
+// require watch_button.jsx
 
 var ShowPage = React.createClass({
   getInitialState: function() {
@@ -9,7 +10,7 @@ var ShowPage = React.createClass({
 
   render: function() {
     var seasons = Object.keys(this.props.episodes_by_season).sort((a, b) => b - a).map( season => {
-      return <bottlereact.Season number={season} episodes={this.props.episodes_by_season[season]} />
+      return <bottlereact.Season show_id={this.props.show_id} number={season} episodes={this.props.episodes_by_season[season]} />
     });
     return (
       <div className="mdl-grid">
@@ -24,6 +25,7 @@ var ShowPage = React.createClass({
             <div className="mdl-card__supporting-text" style={{overflowY: "auto"}}>
               {this.props.description}
             </div>
+          <bottlereact.WatchButton show_id={this.props.show_id} />
         </div>
         <bottlereact.ShowInfo
           show_id={this.props.show_id}

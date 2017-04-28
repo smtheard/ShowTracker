@@ -4,7 +4,7 @@ var BaseLayout = React.createClass({
       <div className="mdl-layout mdl-js-layout mdl-layout--fixed-header" style={{alignItems: "center"}}>
         <header className="mdl-layout__header">
           <div className="mdl-layout__header-row">
-            <span className="mdl-layout-title">Slothy</span>
+            <a href="/" style={{textDecoration: "none", color: "white"}}><span className="mdl-layout-title">Slothy</span></a>
             <div className="mdl-layout-spacer"></div>
             <nav className="mdl-navigation mdl-layout--large-screen-only">
               <a className="mdl-navigation__link" href=""><i className="material-icons">&#xE8B8;</i></a>

@@ -38,7 +38,7 @@ var ShowInfo = React.createClass({
   render: function() {
     return (
       <div className="mdl-cell mdl-cell--4-col" style={{position:"relative", height: "340px"}}>
-        <bottlereact.TrackButton show_id={this.props.show_id} style={{width: "100%"}} />
+        <bottlereact.ShowFollowButton show_id={this.props.show_id} style={{width: "100%"}} />
         <table className="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp" style={{width: "100%", tableLayout:"fixed"}}>
             {this.nextEpisode()}
             {this.nullableRow("Premiere Date", this.props.premiere_date)}

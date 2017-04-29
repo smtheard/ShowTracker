@@ -42,7 +42,7 @@ var ShowCard = React.createClass({
         <div onClick={this.toggleDesc} className="mdl-card__supporting-text" style={{height: "75px", overflowY: "auto"}}>
           {this.state.expanded ? this.props.description : this.truncate(this.props.description)}
         </div>
-        <bottlereact.TrackButton show_id={this.props.show_id} style={{width: "100%"}}/>
+        <bottlereact.ShowFollowButton show_id={this.props.show_id} style={{width: "100%"}}/>
       </div>
     );
   }

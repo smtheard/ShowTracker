@@ -1,4 +1,4 @@
-var TrackButton = React.createClass({
+var ShowFollowButton = React.createClass({
   getInitialState: function() {
     return {tracking: false};
   },
@@ -19,4 +19,4 @@ var TrackButton = React.createClass({
   }
 });
 
-bottlereact._register('TrackButton', TrackButton);
+bottlereact._register('ShowFollowButton', ShowFollowButton);

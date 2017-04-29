@@ -1,0 +1,9 @@
+bottle
+bottle_session
+bottle_sqlalchemy
+bottle_react
+bottle_beaker
+psycopg2
+bcrypt
+pytvmaze
+slugify

@@ -7,6 +7,7 @@ if PROD:
   from config_production import *
 else:
   from config import *
+  import controllers.secret_test
 
 def run():
   bottle.debug(not PROD)

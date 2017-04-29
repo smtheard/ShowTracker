@@ -32,14 +32,11 @@ class Episode(config.Base):
       "title": self.title,
       "description": self.description,
       "image_src": self.image_src,
-      "first_air": dt_parse(self.first_air).strftime("%B %d, %Y"), # self.premiere_date.strftime("%B %d, %Y")
+      "first_air": dt_parse(self.first_air).strftime("%B %d, %Y"), # TODO: save this as a timestamp like a sane person
       "is_special": self.is_special,
       "number": self.number
     }
   def __init__(self, **kwargs):
-    # this will blow up if passed in a key that doesn't exist as an attribute
-    # it also blows up if the ORM attempts to save without setting a title.
-    # both are intended.
     for key, value in kwargs.items():
       setattr(self, key, value)
 

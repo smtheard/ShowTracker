@@ -5,13 +5,53 @@ var WatchButton = React.createClass({
             text: "Mark as Watched"};
   },
 
-  onClick: function() {
-    var watched = !this.state.watched
+  componentWillMount: function() {
+    var parent_type = "episode";
+    if(this.props.show_id)
+      parent_type = "show";
+    $.ajax({
+      type: 'GET',
+      contentType: 'application/json',
+      // parent_type is an enum, episode/season/show
+      // id refers to episode id for episode, show id for season/show
+      url: '/rest/episode-watch/' + parent_type + '/' + (this.props.episode_id || this.props.show_id),
+      data: JSON.stringify({season: this.props.season}),
+      success: (data) => {
+        if(data.success)
+          this.onSuccess(data);
+        else
+          this.onFailure(data);
+      }
+    });
+  },
+
+  onSuccess: function(data) {
+    var watched = data.watched;
     this.setState({
       watched: watched,
       icon: watched ? this.icon("done", "#4CAF50") : this.icon("remove_red_eye"),
       text: watched ? "Watched" : "Mark as Watched"
      });
+  },
+
+  onClick: function() {
+    var parent_type = "episode";
+    if(this.props.show_id)
+      parent_type = "show";
+    $.ajax({
+      type: 'POST',
+      contentType: 'application/json',
+      url: '/rest/episode-watch/' + parent_type + '/' + (this.props.episode_id || this.props.show_id),
+      data: JSON.stringify({season: this.props.season_number, 
+                            watched: this.state.watched}),
+      success: (data) => {
+        if(data.success)
+          this.onSuccess(data);
+        else
+          this.onFailure(data);
+      },
+      error: this.onFailure
+    });
   },
 
   onMouseOver: function() {

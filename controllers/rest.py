@@ -6,17 +6,8 @@ from models.show import Show
 
 @app.get('/rest/shows')
 def shows(session):
-  if(session["user_id"]):
-    return user_shows(session)
-  else:
-    return guest_shows(session)
-
-def user_shows(user):
   shows = sa_session.query(Show).limit(20).all()
   return dict(shows=[show.to_card_dict() for show in shows], success=True)
-
-def guest_shows(session):
-  pass
 
 from models.show_follow import ShowFollow
 
@@ -48,4 +39,32 @@ def update_show_follow(session, show_id):
   else:
     raise "guest users can't follow shows"
 
+from models.episode_watch import EpisodeWatch
 
+@app.get("/rest/episode-watch/episode/<episode_id>")
+def episode_watch(session, episode_id):
+  if(session["user_id"]):
+    episode_watch = sa_session.query(EpisodeWatch) \
+                            .filter(EpisodeWatch.episode_id==episode_id, EpisodeWatch.user_id==session["user_id"]) \
+                            .first()
+    return dict(watched=(episode_watch is not None), success=True)
+  else:
+    return dict(watched=False, success=True)
+
+@app.post("/rest/episode-watch/episode/<episode_id>")
+def update_episode_watch(session, episode_id):
+  watched = bottle.request.json["watched"]
+  user_id = session["user_id"]
+  if(user_id):
+    if(watched):
+      sa_session.query(EpisodeWatch) \
+                .filter(EpisodeWatch.episode_id==episode_id, EpisodeWatch.user_id == user_id) \
+                .delete()
+      return dict(watched=False, success=True)
+    else:
+      episode_watch = EpisodeWatch(episode_id=episode_id, user_id=user_id)
+      sa_session.add(episode_watch)
+      sa_session.commit()
+      return dict(watched=True, success=True)
+  else:
+    raise "guest users can't follow shows"

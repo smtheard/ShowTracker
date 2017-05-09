@@ -16,7 +16,7 @@ var EpisodeCard = React.createClass({
           {this.props.title}
         </div>
         <div className="mdl-card__supporting-text" style={{margin: 0, padding: 0}}>
-          <bottlereact.WatchButton show_id={this.props.show_id} episode_number={this.props.number} />
+          <bottlereact.WatchButton episode_id={this.props.id} />
         </div>
         <div className="mdl-card__supporting-text" style={{overflowY: "auto"}}>
           Air Date: {this.props.first_air}

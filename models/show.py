@@ -70,5 +70,5 @@ class Show(config.Base):
     for key, value in kwargs.items():
       setattr(self, key, value)
 
-  # def __repr__(self):
-  #   return "<Show('%d', '%s')>" % (self.id, self.title)
+  def __repr__(self):
+    return "<Show('%d', '%s')>" % (self.id, self.title)

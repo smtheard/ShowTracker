@@ -5,7 +5,7 @@ var WatchButton = React.createClass({
             text: "Mark as Watched"};
   },
 
-  componentWillMount: function() {
+  componentDidMount: function() {
     var parent_type = "episode";
     if(this.props.show_id)
       parent_type = "show";

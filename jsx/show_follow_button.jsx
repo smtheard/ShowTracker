@@ -3,7 +3,7 @@ var ShowFollowButton = React.createClass({
     return {following: false};
   },
 
-  componentWillMount: function() {
+  componentDidMount: function() {
     $.ajax({
        type: 'GET',
        contentType: 'application/json',

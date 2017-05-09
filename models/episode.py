@@ -36,6 +36,11 @@ class Episode(config.Base):
       "is_special": self.is_special,
       "number": self.number
     }
+
+  # TODO: remove when this is a timestamp, temp fix so I can implement other things properly
+  def first_air_ts(self):
+    return dt_parse(self.first_air)
+
   def __init__(self, **kwargs):
     for key, value in kwargs.items():
       setattr(self, key, value)

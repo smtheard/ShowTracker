@@ -2,6 +2,8 @@ import config
 import sqlalchemy as sa
 import datetime as dt
 
+from config import sa_session
+
 class Show(config.Base):
   __tablename__ = 'show'
 
@@ -52,7 +54,14 @@ class Show(config.Base):
     return self.schedule_days + " " + dt.datetime.strptime(self.schedule_time, "%H:%M").strftime("%I:%M %p") + " (EST)"
 
   def path(self):
-    return "/show/" + self.slug 
+    return "/show/" + self.slug
+
+  def next_episode(self):
+    sorted_eps = sorted(self.episodes, key=lambda ep: ep.first_air_ts())
+    for episode in sorted_eps:
+      if episode.first_air_ts() > dt.datetime.now():
+        return episode.first_air_ts().strftime("%B %d, %Y")
+
 
   def __init__(self, **kwargs):
     # this will blow up if passed in a key that doesn't exist as an attribute

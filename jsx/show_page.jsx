@@ -30,6 +30,7 @@ var ShowPage = React.createClass({
         <bottlereact.ShowInfo
           show_id={this.props.show_id}
           title={this.props.title}
+          next_episode={this.props.next_episode}
           premiere_date={this.props.premiere_date}
           status={this.props.status}
           country={this.props.country}

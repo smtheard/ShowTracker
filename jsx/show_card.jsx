@@ -1,4 +1,4 @@
-// require track_button.jsx
+// require show_follow_button.jsx
 
 var ShowCard = React.createClass({
   getInitialState: function() {

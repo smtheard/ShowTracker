@@ -61,7 +61,7 @@ class Show(config.Base):
     for episode in sorted_eps:
       if episode.first_air_ts() > dt.datetime.now():
         return episode.first_air_ts().strftime("%B %d, %Y")
-
+    return "TBA"
 
   def __init__(self, **kwargs):
     # this will blow up if passed in a key that doesn't exist as an attribute

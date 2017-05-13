@@ -4,6 +4,13 @@ var ShowFollowButton = React.createClass({
   },
 
   componentDidMount: function() {
+    if(this.props.prefetchedState)
+      this.updateState(this.props.prefetchedState);
+    else
+      this.fetch();
+  },
+
+  fetch: function() {
     $.ajax({
        type: 'GET',
        contentType: 'application/json',
@@ -11,7 +18,7 @@ var ShowFollowButton = React.createClass({
        data: JSON.stringify(this.state),
        success: (data) => {
           if(data.success)
-            this.onSuccess(data);
+            this.updateState(data);
           else
             this.onFailure(data);
         },
@@ -27,7 +34,7 @@ var ShowFollowButton = React.createClass({
        data: JSON.stringify(this.state),
        success: (data) => {
           if(data.success)
-            this.onSuccess(data);
+            this.updateState(data);
           else
             this.onFailure(data);
         },
@@ -35,7 +42,7 @@ var ShowFollowButton = React.createClass({
     });
   },
 
-  onSuccess: function(data) {
+  updateState: function(data) {
     this.setState({following: data.following});
   },
 

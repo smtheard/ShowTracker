@@ -16,12 +16,12 @@ var Home = React.createClass({
        url: '/rest/shows',
        success: (data) => {
           if(data.success)
-            this.onSuccess(data.shows);
+            this.updateState(data.shows);
         }
     });
   },
 
-  onSuccess: function(show_data) {
+  updateState: function(show_data) {
     // data format:
     // [{id: 1, title: "Game of Thrones", image_src: "www.gameofthrones.com/image/5", ...},
     //  {id: 2, title: "Billions", ...}]

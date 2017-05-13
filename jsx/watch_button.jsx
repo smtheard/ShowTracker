@@ -2,10 +2,17 @@ var WatchButton = React.createClass({
   getInitialState: function() {
     return {watched: false,
             icon: this.icon("remove_red_eye"),
-            text: "Mark as Watched"};
+            text: this.notWatchedText()};
   },
 
   componentDidMount: function() {
+    if(this.props.prefetchedState)
+      this.updateState(this.props.prefetchedState);
+    else
+      this.fetch();
+  },
+
+  fetch: function() {
     var parent_type = "episode";
     if(this.props.show_id)
       parent_type = "show";
@@ -18,19 +25,27 @@ var WatchButton = React.createClass({
       data: JSON.stringify({season: this.props.season}),
       success: (data) => {
         if(data.success)
-          this.onSuccess(data);
+          this.updateState(data);
         else
           this.onFailure(data);
       }
     });
   },
 
-  onSuccess: function(data) {
+  watchedText: function() {
+    return (this.props.watchedText || "Watched");
+  },
+
+  notWatchedText: function() {
+    return (this.props.notWatchedText || "Mark as Watched");
+  },
+
+  updateState: function(data) {
     var watched = data.watched;
     this.setState({
       watched: watched,
       icon: watched ? this.icon("done", "#4CAF50") : this.icon("remove_red_eye"),
-      text: watched ? "Watched" : "Mark as Watched"
+      text: watched ? this.watchedText() : this.notWatchedText()
      });
   },
 
@@ -46,7 +61,7 @@ var WatchButton = React.createClass({
                             watched: this.state.watched}),
       success: (data) => {
         if(data.success)
-          this.onSuccess(data);
+          this.updateState(data);
         else
           this.onFailure(data);
       },
@@ -67,7 +82,7 @@ var WatchButton = React.createClass({
     if(this.state.watched) {
       this.setState({
         icon: this.icon("done", "#4CAF50"),
-        text: "Watched"
+        text: this.watchedText()
       });
     }
   },

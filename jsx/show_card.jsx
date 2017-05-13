@@ -6,7 +6,11 @@ var ShowCard = React.createClass({
   },
 
   truncate: function(str) {
+    if(!str)
+      return "";
+    
     var truncated = str.split(/\s+/).slice(0,25).join(" ");
+
     if(truncated.length < str.length)
       return truncated + "...";
     else
@@ -42,7 +46,7 @@ var ShowCard = React.createClass({
         <div onClick={this.toggleDesc} className="mdl-card__supporting-text" style={{height: "75px", overflowY: "auto"}}>
           {this.state.expanded ? this.props.description : this.truncate(this.props.description)}
         </div>
-        <bottlereact.ShowFollowButton show_id={this.props.show_id} style={{width: "100%"}}/>
+        <bottlereact.ShowFollowButton prefetchedState={{following: this.props.is_followed_by_user}} show_id={this.props.show_id} style={{width: "100%"}}/>
       </div>
     );
   }

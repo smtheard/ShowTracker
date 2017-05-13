@@ -5,8 +5,8 @@ class ShowFollow(config.Base):
   __tablename__ = 'show_follow'
 
   id = sa.Column(sa.Integer, sa.Sequence('show_follow_id_seq'), primary_key=True)
-  show_id = sa.Column(sa.Integer, nullable=False)
-  user_id = sa.Column(sa.Integer, nullable=False)
+  show_id = sa.Column(sa.Integer, sa.ForeignKey("show.id"), nullable=False)
+  user_id = sa.Column(sa.Integer, sa.ForeignKey("user.id"), nullable=False)
 
   def __init__(self, show_id, user_id):
     self.show_id = show_id

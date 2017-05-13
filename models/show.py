@@ -30,15 +30,17 @@ class Show(config.Base):
 
   episodes = sa.orm.relationship("Episode", backref="show")
   network = sa.orm.relationship("Network", uselist=False, backref="show")
+  show_follows = sa.orm.relationship("ShowFollow", backref="show")
 
-  def to_card_dict(self):
+  def to_card_dict(self, user=None):
     return { "show_id": self.id,
              "title": self.title,
              "image_src": self.tvmaze_img_src,
              "description": self.description,
-             "path": self.path() }
+             "path": self.path(),
+             "is_followed_by_user": bool(filter(lambda uid: uid == user.id, map(lambda sf: sf.user_id, self.show_follows))) }
 
-  def to_page_dict(self):
+  def to_page_dict(self, user=None):
     return { "show_id": self.id,
              "title": self.title,
              "image_src": self.tvmaze_img_src,

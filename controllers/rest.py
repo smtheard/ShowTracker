@@ -1,21 +1,30 @@
 import bottle
 from config import app, br, sa_session
+from sqlalchemy.orm import joinedload
 
 from models.user import User
 from models.show import Show
 
 @app.get('/rest/shows')
 def shows(session):
-  shows = sa_session.query(Show).limit(20).all()
-  return dict(shows=[show.to_card_dict() for show in shows], success=True)
+  user_id = session.get("user_id")
+  user = None
+
+  if(user_id):
+    user = sa_session.query(User).filter(User.id == user_id).first()
+
+  shows = sa_session.query(Show).options(joinedload('show_follows')).limit(1500).all()
+
+  return dict(shows=[show.to_card_dict(user=user) for show in shows], success=True)
 
 from models.show_follow import ShowFollow
 
 @app.get("/rest/show-follows/<show_id>")
 def show_follow(session, show_id):
-  if(session["user_id"]):
+  user_id = session.get("user_id")
+  if(user_id):
     show_follow = sa_session.query(ShowFollow) \
-                            .filter(ShowFollow.show_id==show_id, ShowFollow.user_id==session["user_id"]) \
+                            .filter(ShowFollow.show_id==show_id, ShowFollow.user_id==user_id) \
                             .first()
     return dict(following=(show_follow is not None), success=True)
   else:
@@ -24,7 +33,7 @@ def show_follow(session, show_id):
 @app.post("/rest/show-follows/<show_id>")
 def update_show_follow(session, show_id):
   following = bottle.request.json["following"]
-  user_id = session["user_id"]
+  user_id = session.get("user_id")
   if(user_id):
     if(following):
       sa_session.query(ShowFollow) \
@@ -43,9 +52,10 @@ from models.episode_watch import EpisodeWatch
 
 @app.get("/rest/episode-watch/episode/<episode_id>")
 def episode_watch(session, episode_id):
-  if(session["user_id"]):
+  user_id = session.get("user_id")
+  if(user_id):
     episode_watch = sa_session.query(EpisodeWatch) \
-                            .filter(EpisodeWatch.episode_id==episode_id, EpisodeWatch.user_id==session["user_id"]) \
+                            .filter(EpisodeWatch.episode_id==episode_id, EpisodeWatch.user_id==user_id) \
                             .first()
     return dict(watched=(episode_watch is not None), success=True)
   else:

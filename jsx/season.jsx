@@ -18,7 +18,7 @@ var Season = React.createClass({
             <bottlereact.WatchButton watchedText={"Unwatch Season"} notWatchedText={"Mark Season As Watched"} show_id={this.props.show_id} season_number={this.props.number} />
           </div>
         </div>
-        <div className="mdl-grid">
+        <div className="mdl-grid" style={{margin: "0"}}>
           {episodes}
         </div>
       </div>

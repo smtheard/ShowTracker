@@ -14,7 +14,7 @@ var ShowFollowButton = React.createClass({
     $.ajax({
        type: 'GET',
        contentType: 'application/json',
-       url: '/rest/show-follows/' + this.props.show_id,
+       url: '/rest/show-follow/' + this.props.show_id,
        data: JSON.stringify(this.state),
        success: (data) => {
           if(data.success)
@@ -30,7 +30,7 @@ var ShowFollowButton = React.createClass({
     $.ajax({
        type: 'POST',
        contentType: 'application/json',
-       url: '/rest/show-follows/' + this.props.show_id,
+       url: '/rest/show-follow/' + this.props.show_id,
        data: JSON.stringify(this.state),
        success: (data) => {
           if(data.success)

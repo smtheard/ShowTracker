@@ -3,6 +3,8 @@ import sqlalchemy as sa
 
 from datetime import datetime,timedelta
 def dt_parse(t):
+    if(not t):
+      return datetime(1970, 1, 1)
     ret = datetime.strptime(t[0:16],'%Y-%m-%dT%H:%M')
     if t[18]=='+':
         ret-=timedelta(hours=int(t[19:22]),minutes=int(t[23:]))
@@ -32,7 +34,7 @@ class Episode(config.Base):
       "title": self.title,
       "description": self.description,
       "image_src": self.image_src,
-      "first_air": dt_parse(self.first_air).strftime("%B %d, %Y"), # TODO: save this as a timestamp like a sane person
+      "first_air": dt_parse(self.first_air).strftime("%B %d, %Y") if self.first_air else "TBA", # TODO: save this as a timestamp like a sane person
       "is_special": self.is_special,
       "number": self.number
     }

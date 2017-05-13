@@ -19,7 +19,7 @@ def shows(session):
 
 from models.show_follow import ShowFollow
 
-@app.get("/rest/show-follows/<show_id>")
+@app.get("/rest/show-follow/<show_id>")
 def show_follow(session, show_id):
   user_id = session.get("user_id")
   if(user_id):
@@ -30,7 +30,7 @@ def show_follow(session, show_id):
   else:
     return dict(following=False, success=True)
 
-@app.post("/rest/show-follows/<show_id>")
+@app.post("/rest/show-follow/<show_id>")
 def update_show_follow(session, show_id):
   following = bottle.request.json["following"]
   user_id = session.get("user_id")

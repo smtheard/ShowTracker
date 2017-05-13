@@ -5,7 +5,14 @@
 
 var ShowPage = React.createClass({
   getInitialState: function() {
-    return {opacity: 3};
+    return {
+      opacity: 3,
+      episodes: this.props.episodes_by_season
+    };
+  },
+
+  fetchEpisodes: function() {
+
   },
 
   render: function() {
@@ -25,7 +32,7 @@ var ShowPage = React.createClass({
             <div className="mdl-card__supporting-text" style={{overflowY: "auto", height: "100px"}}>
               {this.props.description}
             </div>
-          <bottlereact.WatchButton watchedText={"Unwatch All Episodes"} notWatchedText={"Mark All Episodes as Watched"} show_id={this.props.show_id} />
+          <bottlereact.WatchButton watched_text={"Unwatch All Episodes"} not_w0atched_text={"Mark All Episodes as Watched"} show_id={this.props.show_id} />
         </div>
         <bottlereact.ShowInfo
           show_id={this.props.show_id}

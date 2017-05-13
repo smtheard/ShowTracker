@@ -33,11 +33,11 @@ var WatchButton = React.createClass({
   },
 
   watchedText: function() {
-    return (this.props.watchedText || "Watched");
+    return (this.props.watched_text || "Watched");
   },
 
   notWatchedText: function() {
-    return (this.props.notWatchedText || "Mark as Watched");
+    return (this.props.not_watched_text || "Mark as Watched");
   },
 
   updateState: function(data) {

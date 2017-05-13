@@ -25,16 +25,12 @@ var ShowPage = React.createClass({
 
   updateState: function(data) {
     this.setState({episodes_by_season: data.episodes_by_season});
-    console.log("new episodes by season loaded");
   },
 
   render: function() {
-    console.log("showpage render");
     var seasons = Object.keys(this.state.episodes_by_season).sort((a, b) => b - a).map( season => {
       return <bottlereact.Season show_id={this.props.show_id} number={season} episodes={this.state.episodes_by_season[season]} />
     });
-    console.log("seasons: ");
-    console.log(seasons);
     return (
       <div className="mdl-grid">
         <div className="mdl-cell mdl-cell--8-col mdl-shadow--2dp"

@@ -8,7 +8,6 @@ var EpisodeCard = React.createClass({
 
   componentWillReceiveProps: function(newProps) {
     this.setState(newProps);
-    console.log(newProps);
   },
 
   render: function() {

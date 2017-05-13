@@ -13,7 +13,7 @@ def shows(session):
   if(user_id):
     user = sa_session.query(User).filter(User.id == user_id).first()
 
-  shows = sa_session.query(Show).options(joinedload('show_follows')).limit(1500).all()
+  shows = sa_session.query(Show).options(joinedload('show_follows')).limit(100).all()
 
   return dict(shows=[show.to_card_dict(user=user) for show in shows], success=True)
 

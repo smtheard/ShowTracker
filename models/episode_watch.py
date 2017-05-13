@@ -8,6 +8,8 @@ class EpisodeWatch(config.Base):
   episode_id = sa.Column(sa.Integer, sa.ForeignKey("episode.id"), nullable=False)
   user_id = sa.Column(sa.Integer, sa.ForeignKey("user.id"), nullable=False)
 
+  episodes = sa.orm.relationship("Episode", backref="EpisodeWatch")
+
   def __init__(self, episode_id, user_id):
     self.episode_id = episode_id
     self.user_id = user_id

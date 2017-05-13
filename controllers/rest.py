@@ -4,6 +4,7 @@ from sqlalchemy.orm import joinedload
 
 from models.user import User
 from models.show import Show
+from models.episode import Episode
 
 @app.get('/rest/shows')
 def shows(session):
@@ -24,7 +25,7 @@ def show_follow(session, show_id):
   user_id = session.get("user_id")
   if(user_id):
     show_follow = sa_session.query(ShowFollow) \
-                            .filter(ShowFollow.show_id==show_id, ShowFollow.user_id==user_id) \
+                            .filter(ShowFollow.show_id == show_id, ShowFollow.user_id==user_id) \
                             .first()
     return dict(following=(show_follow is not None), success=True)
   else:
@@ -37,7 +38,7 @@ def update_show_follow(session, show_id):
   if(user_id):
     if(following):
       sa_session.query(ShowFollow) \
-                .filter(ShowFollow.show_id==show_id, ShowFollow.user_id == user_id) \
+                .filter(ShowFollow.show_id == show_id, ShowFollow.user_id == user_id) \
                 .delete()
       return dict(following=False, success=True)
     else:
@@ -55,8 +56,8 @@ def episode_watch(session, episode_id):
   user_id = session.get("user_id")
   if(user_id):
     episode_watch = sa_session.query(EpisodeWatch) \
-                            .filter(EpisodeWatch.episode_id==episode_id, EpisodeWatch.user_id==user_id) \
-                            .first()
+                              .filter(EpisodeWatch.episode_id == episode_id, EpisodeWatch.user_id==user_id) \
+                              .first()
     return dict(watched=(episode_watch is not None), success=True)
   else:
     return dict(watched=False, success=True)
@@ -68,12 +69,51 @@ def update_episode_watch(session, episode_id):
   if(user_id):
     if(watched):
       sa_session.query(EpisodeWatch) \
-                .filter(EpisodeWatch.episode_id==episode_id, EpisodeWatch.user_id == user_id) \
+                .filter(EpisodeWatch.episode_id == episode_id, EpisodeWatch.user_id == user_id) \
                 .delete()
       return dict(watched=False, success=True)
     else:
       episode_watch = EpisodeWatch(episode_id=episode_id, user_id=user_id)
       sa_session.add(episode_watch)
+      sa_session.commit()
+      return dict(watched=True, success=True)
+  else:
+    raise "guest users can't follow shows"
+
+@app.get("/rest/episode-watch/show/<show_id>")
+def episode_watches_for_show(session, show_id):
+  user_id = session.get("user_id")
+  if(user_id):
+    episodes_watched = sa_session.query(EpisodeWatch) \
+                              .filter(EpisodeWatch.user_id == user_id) \
+                              .join(EpisodeWatch.episodes) \
+                              .filter(Episode.show_id == show_id) \
+                              .count()
+    episode_count = sa_session.query(Show).join(Show.episodes).filter(Show.id == show_id).count()
+    return dict(watched=(episodes_watched == episode_count), success=True)
+  else:
+    return dict(watched=False, success=True)
+
+@app.post("/rest/episode-watch/show/<show_id>")
+def update_episode_watches_for_show(session, show_id):
+  watched = bottle.request.json["watched"]
+  user_id = session["user_id"]
+  if(user_id):
+    episode_watches = sa_session.query(EpisodeWatch) \
+              .filter(EpisodeWatch.user_id == user_id) \
+              .join(EpisodeWatch.episodes) \
+              .filter(Episode.show_id == show_id) \
+              .all()
+    episode_watch_ids = map(lambda ew: ew.id, episode_watches)
+    sa_session.query(EpisodeWatch).filter(EpisodeWatch.id.in_(episode_watch_ids)).delete(synchronize_session='fetch')
+    sa_session.commit()
+    if(watched):
+      return dict(watched=False, success=True)
+    else:
+      episodes = sa_session.query(Episode).filter(Episode.show_id == show_id).all()
+      for episode in episodes:
+        episode_watch = EpisodeWatch(episode_id=episode.id, user_id=user_id)
+        sa_session.add(episode_watch)
       sa_session.commit()
       return dict(watched=True, success=True)
   else:

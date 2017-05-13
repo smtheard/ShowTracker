@@ -5,8 +5,8 @@ class EpisodeWatch(config.Base):
   __tablename__ = 'watched_episode'
 
   id = sa.Column(sa.Integer, sa.Sequence('watched_episode_id_seq'), primary_key=True)
-  episode_id = sa.Column(sa.Integer, nullable=False)
-  user_id = sa.Column(sa.Integer, nullable=False)
+  episode_id = sa.Column(sa.Integer, sa.ForeignKey("episode.id"), nullable=False)
+  user_id = sa.Column(sa.Integer, sa.ForeignKey("user.id"), nullable=False)
 
   def __init__(self, episode_id, user_id):
     self.episode_id = episode_id

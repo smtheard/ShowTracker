@@ -38,7 +38,7 @@ class Show(config.Base):
              "image_src": self.tvmaze_img_src,
              "description": self.description,
              "path": self.path(),
-             "is_followed_by_user": bool(filter(lambda uid: uid == user.id, map(lambda sf: sf.user_id, self.show_follows))) }
+             "is_followed_by_user": bool(filter(lambda uid: uid == user.id, map(lambda sf: sf.user_id, self.show_follows))) if user else False }
 
   def to_page_dict(self, user=None):
     return { "show_id": self.id,

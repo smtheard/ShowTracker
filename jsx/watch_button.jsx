@@ -12,17 +12,18 @@ var WatchButton = React.createClass({
       this.fetch();
   },
 
+  componentWillReceiveProps: function(newProps) {
+    if(newProps.prefetchedState)
+      this.updateState(newProps.prefetchedState);
+  },
+
   fetch: function() {
-    var parent_type = "episode";
-    if(this.props.show_id)
-      parent_type = "show";
     $.ajax({
       type: 'GET',
       contentType: 'application/json',
       // parent_type is an enum, episode/season/show
       // id refers to episode id for episode, show id for season/show
-      url: '/rest/episode-watch/' + parent_type + '/' + (this.props.episode_id || this.props.show_id),
-      data: JSON.stringify({season: this.props.season}),
+      url: this.url(),
       success: (data) => {
         if(data.success)
           this.updateState(data);
@@ -49,19 +50,34 @@ var WatchButton = React.createClass({
      });
   },
 
-  onClick: function() {
-    var parent_type = "episode";
+  parentType: function() {
+    if(this.props.season_number)
+      return "season";
     if(this.props.show_id)
-      parent_type = "show";
+      return "show";
+    return "episode";
+  },
+
+  url: function() {
+    var parent_type = this.parentType();
+    var url = '/rest/' + parent_type + '-watch/';
+    if(parent_type == "season") 
+      return url + this.props.show_id + '/' + this.props.season_number;
+    else
+      return url + (this.props.episode_id || this.props.show_id);
+  },
+
+  onClick: function() {
     $.ajax({
       type: 'POST',
       contentType: 'application/json',
-      url: '/rest/episode-watch/' + parent_type + '/' + (this.props.episode_id || this.props.show_id),
-      data: JSON.stringify({season: this.props.season_number, 
-                            watched: this.state.watched}),
+      url: this.url(),
+      data: JSON.stringify({watched: this.state.watched}),
       success: (data) => {
-        if(data.success)
+        if(data.success){
           this.updateState(data);
+          this.props.callback && this.props.callback();
+        }
         else
           this.onFailure(data);
       },

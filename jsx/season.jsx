@@ -3,13 +3,22 @@
 
 var Season = React.createClass({
   getInitialState: function() {
-    return {};
+    return {episodes: this.episodes(this.props)};
+  },
+
+  componentWillReceiveProps: function(newProps) {
+    this.setState({episodes: this.episodes(newProps)});
+  },
+
+  episodes: function(props) {
+    var episodes = props.episodes.sort((a, b) => {return b.number - a.number }).map(episode => {
+      return <bottlereact.EpisodeCard {...episode} />
+    });
+    return episodes;
   },
 
   render: function() {
-    var episodes = this.props.episodes.sort((a, b) => {return b.number - a.number }).map(episode => {
-      return <bottlereact.EpisodeCard {...episode} />
-    });
+
     return (
       <div className="mdl-cell mdl-cell--12-col mdl-card mdl-shadow--2dp">
         <div className="mdl-layout-title">
@@ -19,7 +28,7 @@ var Season = React.createClass({
           </div>
         </div>
         <div className="mdl-grid" style={{margin: "0"}}>
-          {episodes}
+          {this.state.episodes}
         </div>
       </div>
     );

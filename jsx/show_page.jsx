@@ -7,18 +7,34 @@ var ShowPage = React.createClass({
   getInitialState: function() {
     return {
       opacity: 3,
-      episodes: this.props.episodes_by_season
+      episodes_by_season: this.props.episodes_by_season
     };
   },
 
-  fetchEpisodes: function() {
+  fetchEpisodesBySeason: function() {
+    $.ajax({
+       type: 'GET',
+       contentType: 'application/json',
+       url: '/rest/episodes-by-season/' + this.props.show_id,
+       success: (data) => {
+          if(data.success)
+            this.updateState(data);
+        }
+    });
+  },
 
+  updateState: function(data) {
+    this.setState({episodes_by_season: data.episodes_by_season});
+    console.log("new episodes by season loaded");
   },
 
   render: function() {
-    var seasons = Object.keys(this.props.episodes_by_season).sort((a, b) => b - a).map( season => {
-      return <bottlereact.Season show_id={this.props.show_id} number={season} episodes={this.props.episodes_by_season[season]} />
+    console.log("showpage render");
+    var seasons = Object.keys(this.state.episodes_by_season).sort((a, b) => b - a).map( season => {
+      return <bottlereact.Season show_id={this.props.show_id} number={season} episodes={this.state.episodes_by_season[season]} />
     });
+    console.log("seasons: ");
+    console.log(seasons);
     return (
       <div className="mdl-grid">
         <div className="mdl-cell mdl-cell--8-col mdl-shadow--2dp"
@@ -29,10 +45,10 @@ var ShowPage = React.createClass({
                 <h2 className="mdl-card__title-text">{this.props.title}</h2>
               </div>
             </div>
-            <div className="mdl-card__supporting-text" style={{overflowY: "auto", height: "100px"}}>
+            <div className="mdl-card__supporting-text" style={{overflowY: "auto", maxHeight: "100px"}}>
               {this.props.description}
             </div>
-          <bottlereact.WatchButton watched_text={"Unwatch All Episodes"} not_w0atched_text={"Mark All Episodes as Watched"} show_id={this.props.show_id} />
+          <bottlereact.WatchButton callback={this.fetchEpisodesBySeason} watched_text={"Unwatch All Episodes"} not_watched_text={"Mark All Episodes as Watched"} show_id={this.props.show_id} />
         </div>
         <bottlereact.ShowInfo
           show_id={this.props.show_id}

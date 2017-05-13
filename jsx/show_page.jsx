@@ -22,7 +22,7 @@ var ShowPage = React.createClass({
                 <h2 className="mdl-card__title-text">{this.props.title}</h2>
               </div>
             </div>
-            <div className="mdl-card__supporting-text" style={{overflowY: "auto"}}>
+            <div className="mdl-card__supporting-text" style={{overflowY: "auto", height: "100px"}}>
               {this.props.description}
             </div>
           <bottlereact.WatchButton watchedText={"Unwatch All Episodes"} notWatchedText={"Mark All Episodes as Watched"} show_id={this.props.show_id} />

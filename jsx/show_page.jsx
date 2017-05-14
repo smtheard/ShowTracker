@@ -48,7 +48,12 @@ var ShowPage = React.createClass({
             <div className="mdl-card__supporting-text" style={{overflowY: "auto", maxHeight: "100px"}}>
               {this.props.description}
             </div>
-          <bottlereact.WatchButton prefetchedState={{watched: this.allEpisodesWatched()}} callback={this.fetchEpisodesBySeason} watched_text={"Unwatch All Episodes"} not_watched_text={"Mark All Episodes as Watched"} show_id={this.props.show_id} />
+          <bottlereact.WatchButton
+            prefetchedState={{watched: this.allEpisodesWatched()}}
+            callback={this.fetchEpisodesBySeason}
+            watched_text={"Unwatch All Episodes"}
+            not_watched_text={"Mark All Episodes as Watched"}
+            show_id={this.props.show_id} />
         </div>
         <bottlereact.ShowInfo
           show_id={this.props.show_id}

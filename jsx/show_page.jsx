@@ -27,6 +27,10 @@ var ShowPage = React.createClass({
     this.setState({episodes_by_season: data.episodes_by_season});
   },
 
+  allEpisodesWatched: function(){
+    return Object.values(this.state.episodes_by_season).every(season => { return season.every( episode => { return episode.watched_by_user })});
+  },
+
   render: function() {
     var seasons = Object.keys(this.state.episodes_by_season).sort((a, b) => b - a).map( season => {
       return <bottlereact.Season watch_button_callback={this.fetchEpisodesBySeason} show_id={this.props.show_id} number={season} episodes={this.state.episodes_by_season[season]} />
@@ -44,7 +48,7 @@ var ShowPage = React.createClass({
             <div className="mdl-card__supporting-text" style={{overflowY: "auto", maxHeight: "100px"}}>
               {this.props.description}
             </div>
-          <bottlereact.WatchButton callback={this.fetchEpisodesBySeason} watched_text={"Unwatch All Episodes"} not_watched_text={"Mark All Episodes as Watched"} show_id={this.props.show_id} />
+          <bottlereact.WatchButton prefetchedState={{watched: this.allEpisodesWatched()}} callback={this.fetchEpisodesBySeason} watched_text={"Unwatch All Episodes"} not_watched_text={"Mark All Episodes as Watched"} show_id={this.props.show_id} />
         </div>
         <bottlereact.ShowInfo
           show_id={this.props.show_id}

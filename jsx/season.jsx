@@ -18,7 +18,7 @@ var Season = React.createClass({
 
   episodes: function(props) {
     var episodes = props.episodes.sort((a, b) => {return b.number - a.number }).map(episode => {
-      return <bottlereact.EpisodeCard {...episode} />
+      return <bottlereact.EpisodeCard {...episode} watch_button_callback={this.props.watch_button_callback} />
     });
     return episodes;
   },

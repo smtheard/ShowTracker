@@ -30,3 +30,15 @@ def root(session, slug):
     ]),
     title="Slothy"
   )
+
+@app.get('/rest/shows')
+def shows(session):
+  user_id = session.get("user_id")
+  user = None
+
+  if(user_id):
+    user = sa_session.query(User).filter(User.id == user_id).first()
+
+  shows = sa_session.query(Show).options(joinedload('show_follows')).limit(100).all()
+
+  return dict(shows=[show.to_card_dict(user=user) for show in shows], success=True)

@@ -29,7 +29,7 @@ var ShowPage = React.createClass({
 
   render: function() {
     var seasons = Object.keys(this.state.episodes_by_season).sort((a, b) => b - a).map( season => {
-      return <bottlereact.Season show_id={this.props.show_id} number={season} episodes={this.state.episodes_by_season[season]} />
+      return <bottlereact.Season watch_button_callback={this.fetchEpisodesBySeason} show_id={this.props.show_id} number={season} episodes={this.state.episodes_by_season[season]} />
     });
     return (
       <div className="mdl-grid">

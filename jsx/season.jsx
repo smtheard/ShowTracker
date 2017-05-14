@@ -38,7 +38,8 @@ var Season = React.createClass({
               watched_text={"Unwatch Season"}
               not_watched_text={"Mark Season As Watched"}
               show_id={this.props.show_id}
-              season_number={this.props.number} />
+              season_number={this.props.number}
+              callback={this.props.watch_button_callback} />
           </div>
         </div>
         <div className="mdl-grid" style={{margin: "0"}}>

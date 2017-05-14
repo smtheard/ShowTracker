@@ -136,3 +136,18 @@ def episodes_by_season(session, show_id):
     episodes_by_season[episode.season].append(episode.to_dict(user))
 
   return dict(episodes_by_season=episodes_by_season, success=True)
+
+@app.get("/rest/season-watch/<show_id>/<season_number>")
+def season_watch(session, show_id, season_number):
+  user_id = session.get("user_id")
+  if(user_id):
+    episodes_watched = sa_session.query(EpisodeWatch) \
+                              .filter(EpisodeWatch.user_id == user_id) \
+                              .join(EpisodeWatch.episodes) \
+                              .filter(Episode.show_id == show_id) \
+                              .filter(Episode.season == season_number) \
+                              .count()
+    episode_count = sa_session.query(Show).join(Show.episodes).filter(Episode.season == season_number).filter(Show.id == show_id).count()
+    return dict(watched=(episodes_watched == episode_count), success=True)
+  else:
+    return dict(watched=False, success=True)

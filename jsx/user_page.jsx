@@ -19,6 +19,10 @@ var UserPage = React.createClass({
     });
     return (
       <div className="mdl-grid">
+        <div className="mdl-cell mdl-cell--8-col mdl-card mdl-shadow--2dp">
+        </div>
+        <div className="mdl-cell mdl-cell--4-col mdl-card mdl-shadow--2dp">
+        </div>
         <div className="mdl-cell mdl-cell--12-col mdl-card mdl-shadow--2dp">
           <div className="mdl-layout-title">
             <div style={{marginTop: "16px", marginLeft: "16px", display: "inline-block"}}>

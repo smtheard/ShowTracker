@@ -1,6 +1,9 @@
 import bottle
 from config import app, br, sa_session
+from util.sql_alchemy_helper import SQLAlchemyHelper as sa_helper
 from models.user import User
+
+import slugify
 
 # Login Routes
 
@@ -54,7 +57,11 @@ def register():
 def register_submit(session):
   username = bottle.request.json["username"]
   password = bottle.request.json["password"]
-  user = User(username=username, password=password)
+  email = bottle.request.json.get("email")
+  user = User(username=username,
+              password=password,
+              email=email,
+              slug=sa_helper.generate_slug(sa_session, User, slugify.slugify(username)))
   sa_session.add(user)
   sa_session.commit()
   session["user_id"] = user.id

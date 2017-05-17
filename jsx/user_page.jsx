@@ -6,9 +6,16 @@ var UserPage = React.createClass({
     return {shows: this.props.followed_shows};
   },
 
+  width: function() {
+    if(this.state.shows.length > 12)
+      return 263;
+    else
+      return 353;
+  },
+
   render: function() {
     var show_cards = this.state.shows.map(show => {
-      return (<bottlereact.ShowCard {...show} width="353"/>);
+      return (<bottlereact.ShowCard {...show} width={this.width()}/>);
     });
     return (
       <div className="mdl-grid">

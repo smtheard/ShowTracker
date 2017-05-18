@@ -19,7 +19,12 @@ var UserPage = React.createClass({
     });
     return (
       <div className="mdl-grid">
-        <div className="mdl-cell mdl-cell--8-col mdl-card mdl-shadow--2dp">
+        <div className="mdl-cell mdl-cell--8-col mdl-card mdl-shadow--2dp" style={{height: "500px"}}>
+          <BigCalendar
+            events={[]}
+            startAccessor='start'
+            endAccessor='end'
+            views={["month"]} />
         </div>
         <div className="mdl-cell mdl-cell--4-col mdl-card mdl-shadow--2dp">
         </div>

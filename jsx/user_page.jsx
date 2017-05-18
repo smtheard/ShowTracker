@@ -1,6 +1,12 @@
 // require show_card.jsx
 // require watch_button.jsx
 
+var EpisodeEvent = React.createClass({
+  render: function() {
+    return (<h1> hello </h1>);
+  }
+});
+
 var UserPage = React.createClass({
   getInitialState: function() {
     return {shows: this.props.followed_shows};
@@ -21,10 +27,11 @@ var UserPage = React.createClass({
       <div className="mdl-grid">
         <div className="mdl-cell mdl-cell--8-col mdl-card mdl-shadow--2dp" style={{height: "500px"}}>
           <BigCalendar
-            events={[]}
+            events={[{title: "event1", start: new Date(2017, 5, 17), end: new Date(2017, 5, 17)}]}
             startAccessor='start'
             endAccessor='end'
-            views={["month"]} />
+            views={["month"]}
+            components={{event: EpisodeEvent}} />
         </div>
         <div className="mdl-cell mdl-cell--4-col mdl-card mdl-shadow--2dp">
         </div>

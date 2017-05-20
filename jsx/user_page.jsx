@@ -2,8 +2,33 @@
 // require watch_button.jsx
 
 var EpisodeEvent = React.createClass({
+  getInitialState: function() {
+    return {active: false};
+  },
+
+  toggleTooltip: function() {
+    console.log("event clicker");
+    var active = this.state.active;
+    this.setState({active: !active});
+  },
+
   render: function() {
-    return (<h1> hello </h1>);
+    return (
+      <div onClick={this.toggleTooltip}>
+        <div id={"event"}  style={{cursor: "pointer", lineHeight: "1.2"}}>{this.props.title}</div>
+        <div style={{fontSize: "11px"}}>2x05</div>
+        <npm.Tooltip active={this.state.active} position="top" arrow="center" parent="#event" >
+          <div onClick={this.toggleTooltip} style={{position: "absolute", top:2, right:2, fontSize:16}}>X</div>
+              <bottlereact.WatchButton
+              prefetchedState={{watched: this.state.watched}}
+              watched_text={"Unwatch Season"}
+              not_watched_text={"Mark Season As Watched"}
+              show_id={this.props.show_id}
+              season_number={this.props.number}
+              callback={this.props.watch_button_callback} />
+        </npm.Tooltip>
+      </div>
+    );
   }
 });
 
@@ -25,15 +50,16 @@ var UserPage = React.createClass({
     });
     return (
       <div className="mdl-grid">
-        <div className="mdl-cell mdl-cell--8-col mdl-card mdl-shadow--2dp" style={{height: "500px"}}>
-          <BigCalendar
-            events={[{title: "event1", start: new Date(2017, 5, 17), end: new Date(2017, 5, 17)}]}
+
+        <div className="mdl-cell mdl-cell--4-col mdl-card mdl-shadow--2dp">
+        </div>
+        <div className="mdl-cell mdl-cell--8-col mdl-card mdl-shadow--2dp" style={{minHeight: "600px"}}>
+          <npm.BigCalendar
+            events={[{title: "No Ordinary Family", start: new Date(2017, 4, 17), end: new Date(2017, 4, 17)}]}
             startAccessor='start'
             endAccessor='end'
             views={["month"]}
             components={{event: EpisodeEvent}} />
-        </div>
-        <div className="mdl-cell mdl-cell--4-col mdl-card mdl-shadow--2dp">
         </div>
         <div className="mdl-cell mdl-cell--12-col mdl-card mdl-shadow--2dp">
           <div className="mdl-layout-title">

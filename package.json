@@ -6,7 +6,8 @@
     "moment": "^2.18.1",
     "react": "^15.5.4",
     "react-big-calendar": "^0.14.0",
-    "react-dom": "^15.5.4"
+    "react-dom": "^15.5.4",
+    "react-portal-tooltip": "^1.1.5"
   },
   "repository": {
     "type": "git",

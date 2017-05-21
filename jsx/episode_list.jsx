@@ -20,7 +20,7 @@ var EpisodeRow = React.createClass({
           <bottlereact.WatchButton
             prefetchedState={{watched: this.state.watched}}
             episode_id={this.props.id} />
-          <span className="mdl-list__item-secondary-info">Tomorrow</span>
+          <span className="mdl-list__item-secondary-info">{npm.moment(this.props.first_air).fromNow()}</span>
         </span>
       </li>
     )
@@ -35,11 +35,23 @@ var EpisodeList = React.createClass({
   },
 
   filterUpcoming: function() {
-    return this.state.allEpisodes.slice(0, 4);
+    var time7daysInFuture = npm.moment().add(7,'days').startOf('day');
+    var yesterdayEndOfRange =  npm.moment().endOf('day').subtract(1,'day');
+    return this.state.allEpisodes.filter(
+      episode => {
+        return npm.moment(episode.first_air).isBetween(yesterdayEndOfRange, time7daysInFuture);
+      }
+    );
   },
 
   filterRecent: function() {
-    return this.state.allEpisodes.slice(204, 209);
+    var time7daysAgo = npm.moment().subtract(7,'days').startOf('day');
+    var yesterdayEndOfRange =  npm.moment().endOf('day').subtract(1,'day');
+    return this.state.allEpisodes.filter(
+      episode => {
+        return npm.moment(episode.first_air).isBetween(time7daysAgo, yesterdayEndOfRange);
+      }
+    );
   },
 
   render: function() {

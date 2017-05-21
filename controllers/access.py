@@ -66,3 +66,8 @@ def register_submit(session):
   sa_session.commit()
   session["user_id"] = user.id
   return {"success": True}
+
+@app.get('/logout')
+def logout(session):
+  session.destroy()
+  bottle.redirect("/")

@@ -7,8 +7,11 @@ var BaseLayout = React.createClass({
             <a href="/" style={{textDecoration: "none", color: "white"}}><span className="mdl-layout-title">Slothy</span></a>
             <div className="mdl-layout-spacer"></div>
             <nav className="mdl-navigation mdl-layout--large-screen-only">
-              <a className="mdl-navigation__link" href=""><i className="material-icons">&#xE8B8;</i></a>
-              <a className="mdl-navigation__link" href=""><i className="material-icons">&#xE853;</i></a>
+            { this.props.current_user ? 
+              <a className="mdl-navigation__link" href={this.props.current_user.path}><i className="material-icons">&#xE853;</i></a>
+              :
+              <span/>
+            }
             </nav>
           </div>
         </header>

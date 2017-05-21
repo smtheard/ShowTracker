@@ -1,8 +1,10 @@
-window.moment = require("moment-timezone");
+window.npm = {}
+window.npm.moment = require("moment-timezone");
 var BigCalendar = require("react-big-calendar");
 BigCalendar.setLocalizer(
-  BigCalendar.momentLocalizer(moment)
+  BigCalendar.momentLocalizer(npm.moment)
 );
-window.BigCalendar = BigCalendar;
+window.npm.BigCalendar = BigCalendar;
+window.npm.Tooltip = require("react-portal-tooltip");
 window.React = require("react");
 window.ReactDOM = require("react-dom");

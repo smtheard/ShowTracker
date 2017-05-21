@@ -29,6 +29,7 @@ def update_episode_watch(session, episode_id):
       sa_session.query(EpisodeWatch) \
                 .filter(EpisodeWatch.episode_id == episode_id, EpisodeWatch.user_id == user_id) \
                 .delete()
+      sa_session.commit()
       return dict(watched=False, success=True)
     else:
       episode_watch = EpisodeWatch(episode_id=episode_id, user_id=user_id)

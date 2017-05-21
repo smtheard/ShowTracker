@@ -111,18 +111,31 @@ var WatchButton = React.createClass({
     var mdl_styling = this.state.watched ?
       "mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" :
       "mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored"
-    return (
-      <span onClick={this.onClick} 
-        onMouseOver={this.onMouseOver}
-        onMouseLeave={this.onMouseLeave}
-        style={{display: "inline-block", cursor: "pointer", margin: "5px", backgroundColor: "white"}}
-        className="mdl-chip mdl-chip--contact mdl-chip mdl-shadow--2dp">
-          <span className="mdl-chip__text" style={{marginLeft: "10px"}}>
-            {this.state.text}
-          </span>
+
+    if(this.props.tiny) {
+      return (
+        <span onClick={this.onClick} 
+          onMouseOver={this.onMouseOver}
+          onMouseLeave={this.onMouseLeave}
+          style={{display: "float", cursor: "pointer",  backgroundColor: "white"}}>
           {this.state.icon}
-      </span>
-    );
+        </span>
+      ); 
+    } else {
+      return (
+        <span onClick={this.onClick} 
+          onMouseOver={this.onMouseOver}
+          onMouseLeave={this.onMouseLeave}
+          style={{display: "inline-block", cursor: "pointer", margin: "5px", backgroundColor: "white"}}
+          className="mdl-chip mdl-chip--contact mdl-chip mdl-shadow--2dp">
+            <span className="mdl-chip__text" style={{marginLeft: "10px"}}>
+              {this.state.text}
+            </span>
+            {this.state.icon}
+        </span>
+      );      
+    }
+
   }
 });
 

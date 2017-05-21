@@ -18,6 +18,7 @@ var EpisodeRow = React.createClass({
         </span>
         <span className="mdl-list__item-secondary-content">
           <bottlereact.WatchButton
+            callback={_ => {location.reload()}} // TODO: gross hack to avoid writing a bunch of state propogation code at the moment
             prefetchedState={{watched: this.state.watched}}
             episode_id={this.props.id} />
           <span className="mdl-list__item-secondary-info">{npm.moment(this.props.first_air).fromNow()}</span>

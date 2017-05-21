@@ -1,5 +1,5 @@
 window.npm = {}
-window.npm.moment = require("moment-timezone");
+window.npm.moment = require("moment");
 var BigCalendar = require("react-big-calendar");
 BigCalendar.setLocalizer(
   BigCalendar.momentLocalizer(npm.moment)

@@ -9,8 +9,7 @@ var EpisodeEvent = React.createClass({
   },
 
   toggleTooltip: function() {
-    var active = this.state.tooltipActive;
-    this.setState({tooltipActive: !active});
+    this.setState({tooltipActive: !this.state.tooltipActive});
   },
 
   key: function() {
@@ -18,7 +17,6 @@ var EpisodeEvent = React.createClass({
   },
 
   toggleWatched: function() {
-    console.log(this.state.watched);
     this.setState({watched: !this.state.watched});
   },
 

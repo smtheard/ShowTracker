@@ -25,7 +25,7 @@ def root(session, slug):
   props["episodes_by_season"] = episodes_by_season
   props["next_episode"] = show.next_episode()
   return br.render_html(
-    br.BaseLayout({}, [
+    br.BaseLayout({"current_user": user and user.to_dict()}, [
       br.ShowPage(props)
     ]),
     title="Slothy"

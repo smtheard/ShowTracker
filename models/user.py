@@ -16,6 +16,12 @@ class User(config.Base):
     return { "id": self.id, 
              "username": self.username }
 
+  def to_dict(self):
+    return { "path": self.path() }
+
+  def path(self):
+    return "/user/" + self.slug
+
   def authenticate(self, password):
     return self.hash_password(password, self.password_hash.encode('utf-8')) == self.password_hash
 

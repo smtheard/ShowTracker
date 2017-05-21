@@ -2,4 +2,3 @@
 node_modules
 static/js/bundle.js
 config_prod.py
-config.py

@@ -4,7 +4,7 @@ import routes
 PROD = '--prod' in sys.argv
 
 if PROD:
-  from config_production import *
+  from config_prod import *
 else:
   from config import *
   import controllers.secret_test
@@ -12,7 +12,7 @@ else:
 def run():
   bottle.debug(not PROD)
   bottle.run(
-    app=app, 
+    app=app,
     host='localhost',
     port='8080',
     reloader=not PROD

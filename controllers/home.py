@@ -11,5 +11,5 @@ def root(session):
     br.BaseLayout({"current_user": user and user.to_dict()}, [
       br.Home({})
     ]),
-    title="Slothy"
+    title="Overseer.TV Show Tracking App"
   )

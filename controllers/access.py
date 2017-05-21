@@ -17,7 +17,7 @@ def login():
         })
       ]
     ),
-    title="Slothy"
+    title="Overseer.TV Show Tracking App"
   )
 
 @app.post('/login')
@@ -50,7 +50,7 @@ def register():
         })
       ]
     ),
-    title="Slothy"
+    title="Overseer.TV Show Tracking App"
   )
 
 @app.post('/register')

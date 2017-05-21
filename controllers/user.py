@@ -34,5 +34,5 @@ def user(session, slug):
     br.BaseLayout({"current_user": current_user and current_user.to_dict()}, [
       br.UserPage(props)
     ]),
-    title="Slothy"
+    title="Overseer.TV Show Tracking App"
   )

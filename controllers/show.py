@@ -28,7 +28,7 @@ def root(session, slug):
     br.BaseLayout({"current_user": user and user.to_dict()}, [
       br.ShowPage(props)
     ]),
-    title="Slothy"
+    title="Overseer.TV Show Tracking App"
   )
 
 @app.get('/rest/shows')

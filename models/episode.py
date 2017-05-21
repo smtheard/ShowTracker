@@ -28,6 +28,9 @@ class Episode(config.Base):
       "first_air": dt_parse(self.first_air).strftime("%B %d, %Y") if self.first_air else "TBA", # TODO: save this as a timestamp like a sane person
       "is_special": self.is_special,
       "number": self.number,
+      "season_number": self.season,
+      "show_title": self.show.title,
+      "show_path": self.show.path(),
       "watched_by_user": bool(filter(lambda uid: uid == user.id, map(lambda ew: ew.user_id, self.episode_watches))) if user else False
     }
 

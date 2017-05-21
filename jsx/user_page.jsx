@@ -1,5 +1,6 @@
 // require show_card.jsx
 // require episode_event.jsx
+// require episode_list.jsx
 
 var UserPage = React.createClass({
   getInitialState: function() {
@@ -33,6 +34,8 @@ var UserPage = React.createClass({
     return (
       <div className="mdl-grid">
         <div className="mdl-cell mdl-cell--4-col mdl-card mdl-shadow--2dp">
+          <bottlereact.EpisodeList mode={"Upcoming"} episodes={this.state.episodes} />
+          <bottlereact.EpisodeList mode={"Recent"} episodes={this.state.episodes} />
         </div>
         <div className="mdl-cell mdl-cell--8-col mdl-card mdl-shadow--2dp" style={{minHeight: "600px"}}>
           <npm.BigCalendar

@@ -1,6 +1,6 @@
 import config
 import sqlalchemy as sa
-import datetime as dt
+from datetime import datetime
 
 from config import sa_session
 
@@ -27,6 +27,7 @@ class Show(config.Base):
   tvmaze_url = sa.Column(sa.Text)
   tvmaze_updated_at = sa.Column(sa.DateTime(timezone=True))
   last_cached_at = sa.Column(sa.DateTime(timezone=True))
+  created_at = sa.Column(sa.DateTime(timezone=True))
 
   episodes = sa.orm.relationship("Episode", backref="show")
   network = sa.orm.relationship("Network", uselist=False, backref="show")
@@ -53,7 +54,7 @@ class Show(config.Base):
              "schedule": self.schedule() }
 
   def schedule(self):
-    return self.schedule_days + " " + dt.datetime.strptime(self.schedule_time, "%H:%M").strftime("%I:%M %p") + " (EST)"
+    return self.schedule_days + " " + datetime.strptime(self.schedule_time, "%H:%M").strftime("%I:%M %p") + " (EST)"
 
   def path(self):
     return "/show/" + self.slug
@@ -61,7 +62,7 @@ class Show(config.Base):
   def next_episode(self):
     sorted_eps = sorted(self.episodes, key=lambda ep: ep.first_air_ts())
     for episode in sorted_eps:
-      if episode.first_air_ts() > dt.datetime.now():
+      if episode.first_air_ts() > datetime.now():
         return episode.first_air_ts().strftime("%B %d, %Y")
     return "TBA"
 
@@ -71,6 +72,7 @@ class Show(config.Base):
     # both are intended.
     for key, value in kwargs.items():
       setattr(self, key, value)
+    self.created_at = datetime.utcnow()
 
   def __repr__(self):
     return "<Show('%d', '%s')>" % (self.id, self.title)

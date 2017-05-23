@@ -1,5 +1,6 @@
 import config
 import sqlalchemy as sa
+from datetime import datetime
 
 class Episode(config.Base):
   __tablename__ = 'episode'
@@ -16,6 +17,7 @@ class Episode(config.Base):
   last_cached_at = sa.Column(sa.DateTime(timezone=True))
   tvmaze_id = sa.Column(sa.Integer)
   tvmaze_url = sa.Column(sa.Text)
+  created_at = sa.Column(sa.DateTime(timezone=True))
 
   episode_watches = sa.orm.relationship("EpisodeWatch", backref="episode")
 
@@ -41,6 +43,7 @@ class Episode(config.Base):
   def __init__(self, **kwargs):
     for key, value in kwargs.items():
       setattr(self, key, value)
+    self.created_at = datetime.utcnow()
 
   def __repr__(self):
     return "<Episode('%d', '%s', Season: '%d')>" % (self.id, self.title, self.season)

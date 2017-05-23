@@ -7,8 +7,8 @@ from util.utc import UTC
 utc = UTC()
 from util.sql_alchemy_helper import SQLAlchemyHelper as sa_helper
 from config import sa_session
+from datetime import datetime
 
-import datetime
 import pytvmaze
 import slugify
 
@@ -38,9 +38,9 @@ class TVMazeAPI(object):
                 schedule_time=tvm_show.schedule and tvm_show.schedule.get("time"),
                 status=tvm_show.status,
                 tvmaze_url=tvm_show.url,
-                last_cached_at=datetime.datetime.now(utc),
+                last_cached_at=datetime.utcnow(),
                 network_id=network and network.id,
-                tvmaze_updated_at=datetime.datetime.fromtimestamp(tvm_show.updated, utc)
+                tvmaze_updated_at=datetime.fromtimestamp(tvm_show.updated, utc)
                 )
 
     sa_session.add(show)
@@ -56,7 +56,7 @@ class TVMazeAPI(object):
         description=tvm_episode.summary,
         title=tvm_episode.title,
         tvmaze_url=tvm_episode.url,
-        last_cached_at=datetime.datetime.now(),
+        last_cached_at=datetime.utcnow(),
         show_id=show.id
         )
       sa_session.add(episode)
@@ -78,5 +78,5 @@ class TVMazeAPI(object):
       show = show_dict.get(tvm_id)
       if(show is None):
         TVMazeAPI.fetch(tvmaze_id=tvm_id)
-      elif(datetime.datetime.fromtimestamp(update.seconds_since_epoch, utc) > show.last_cached_at):
+      elif(datetime.fromtimestamp(update.seconds_since_epoch, utc) > show.last_cached_at):
         TVMazeAPI.refresh(tvmaze_id=tvm_id)

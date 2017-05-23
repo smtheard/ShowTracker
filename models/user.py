@@ -1,7 +1,7 @@
 import config
 import sqlalchemy as sa
-
 import bcrypt
+from datetime import datetime
 
 class User(config.Base):
   __tablename__ = 'user'
@@ -11,6 +11,7 @@ class User(config.Base):
   slug = sa.Column(sa.Text, unique=True, nullable=False, index=True)
   email = sa.Column(sa.Text, unique=True)
   password_hash = sa.Column(sa.Text)
+  created_at = sa.Column(sa.DateTime(timezone=True))
 
   def to_page_dict(self):
     return { "id": self.id, 
@@ -34,6 +35,7 @@ class User(config.Base):
     self.password_hash = password_hash
     self.email = email
     self.slug = slug
+    self.created_at = datetime.utcnow()
 
   def __repr__(self):
     return "<User('%d', '%s')>" % (self.id, self.username)

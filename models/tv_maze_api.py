@@ -3,8 +3,9 @@ from models.episode import Episode
 from models.network import Network
 from models.genre import Genre
 from models.show_genre import ShowGenre
-from util.utc import UTC
+from util.dateutil import UTC
 utc = UTC()
+from dateutil.parser import parse
 from util.sql_alchemy_helper import SQLAlchemyHelper as sa_helper
 from config import sa_session
 from datetime import datetime
@@ -47,8 +48,10 @@ class TVMazeAPI(object):
     sa_session.flush()
 
     for tvm_episode in tvm_show.episodes:
+      print(tvm_episode.airstamp)
+      print(parse(tvm_episode.airstamp))
       episode = Episode(
-        first_air=tvm_episode.airstamp,
+        first_air=parse(tvm_episode.airstamp).astimezone(utc),
         number=tvm_episode.episode_number,
         tvmaze_id=tvm_episode.maze_id,
         season=tvm_episode.season_number,
@@ -79,4 +82,4 @@ class TVMazeAPI(object):
       if(show is None):
         TVMazeAPI.fetch(tvmaze_id=tvm_id)
       elif(datetime.fromtimestamp(update.seconds_since_epoch, utc) > show.last_cached_at):
-        TVMazeAPI.refresh(tvmaze_id=tvm_id)
+        TVMazeAPI.refresh(show)

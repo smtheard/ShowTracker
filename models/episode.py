@@ -11,7 +11,7 @@ class Episode(config.Base):
   description = sa.Column(sa.Text)
   image_src = sa.Column(sa.Text)
   show_id = sa.Column(sa.Integer, sa.ForeignKey("show.id"), nullable=False)
-  first_air = sa.Column(sa.Text)
+  first_air = sa.Column(sa.DateTime(timezone=True))
   season = sa.Column(sa.Integer)
   is_special = sa.Column(sa.Boolean)
   last_cached_at = sa.Column(sa.DateTime(timezone=True))
@@ -27,7 +27,7 @@ class Episode(config.Base):
       "title": self.title,
       "description": self.description,
       "image_src": self.image_src,
-      "first_air": dt_parse(self.first_air).strftime("%B %d, %Y") if self.first_air else "TBA", # TODO: save this as a timestamp like a sane person
+      "first_air": self.first_air.strftime("%B %d, %Y") if self.first_air else "TBA",
       "is_special": self.is_special,
       "number": self.number,
       "season_number": self.season,
@@ -36,10 +36,6 @@ class Episode(config.Base):
       "watched_by_user": bool(filter(lambda uid: uid == user.id, map(lambda ew: ew.user_id, self.episode_watches))) if user else False
     }
 
-  # TODO: remove when this is a timestamp, temp fix so I can implement other things properly
-  def first_air_ts(self):
-    return dt_parse(self.first_air)
-
   def __init__(self, **kwargs):
     for key, value in kwargs.items():
       setattr(self, key, value)
@@ -47,15 +43,3 @@ class Episode(config.Base):
 
   def __repr__(self):
     return "<Episode('%d', '%s', Season: '%d')>" % (self.id, self.title, self.season)
-
-
-from datetime import datetime,timedelta
-def dt_parse(t):
-    if(not t):
-      return datetime(1970, 1, 1)
-    ret = datetime.strptime(t[0:16],'%Y-%m-%dT%H:%M')
-    if t[18]=='+':
-        ret-=timedelta(hours=int(t[19:22]),minutes=int(t[23:]))
-    elif t[18]=='-':
-        ret+=timedelta(hours=int(t[19:22]),minutes=int(t[23:]))
-    return ret

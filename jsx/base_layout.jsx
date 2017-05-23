@@ -20,18 +20,18 @@ var BaseLayout = React.createClass({
                 </button>
                 <ul className="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
                     htmlFor="more-menu">
-                  <li onClick={_ => {location = "/settings";}} className="mdl-menu__item">Settings</li>
-                  <li onClick={_ => {location = "/logout";}} className="mdl-menu__item">Logout</li>
+                  <a href={"/settings"} className="mdl-menu__item">Settings</a>
+                  <a href={"/logout"} className="mdl-menu__item">Logout</a>
                 </ul>
               </nav>
               :
               <nav className="mdl-navigation">
-                <button onClick={_ => {location = "/login";}} style={{marginRight: '10px'}}className="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">
+                <a href={"/login"} style={{marginRight: '10px'}}className="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">
                   Login
-                </button>
-                <button onClick={_ => {location = "/register";}} className="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">
+                </a>
+                <a href={"/register"} className="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">
                   Register
-                </button>
+                </a>
               </nav>
             }
           </div>

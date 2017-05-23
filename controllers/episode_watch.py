@@ -37,7 +37,7 @@ def update_episode_watch(session, episode_id):
       sa_session.commit()
       return dict(watched=True, success=True)
   else:
-    raise "guest users can't follow shows"
+    return dict(redirect="/register")
 
 @app.get("/rest/show-watch/<show_id>")
 def episode_watches_for_show(session, show_id):
@@ -76,7 +76,7 @@ def update_episode_watches_for_show(session, show_id):
       sa_session.commit()
       return dict(watched=True, success=True)
   else:
-    raise "guest users can't follow shows"
+    return dict(redirect="/register")
 
 @app.get("/rest/season-watch/<show_id>/<season_number>")
 def season_watch(session, show_id, season_number):
@@ -122,3 +122,5 @@ def update_season_watch(session, show_id, season_number):
         sa_session.add(episode_watch)
       sa_session.commit()
       return dict(watched=True, success=True)
+  else:
+    return dict(redirect="/register")

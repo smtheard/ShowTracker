@@ -35,4 +35,4 @@ def update_show_follow(session, show_id):
       sa_session.commit()
       return dict(following=True, success=True)
   else:
-    raise "guest users can't follow shows"
+    return dict(redirect="/register")

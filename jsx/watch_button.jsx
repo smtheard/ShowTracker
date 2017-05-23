@@ -74,6 +74,8 @@ var WatchButton = React.createClass({
       url: this.url(),
       data: JSON.stringify({watched: this.state.watched}),
       success: (data) => {
+        if(data.redirect)
+          window.location = data.redirect;
         if(data.success){
           this.updateState(data);
           this.props.callback && this.props.callback();

@@ -28,15 +28,17 @@ var ShowFollowButton = React.createClass({
 
   onClick: function() {
     $.ajax({
-       type: 'POST',
-       contentType: 'application/json',
-       url: '/rest/show-follow/' + this.props.show_id,
-       data: JSON.stringify(this.state),
-       success: (data) => {
-          if(data.success)
-            this.updateState(data);
-          else
-            this.onFailure(data);
+      type: 'POST',
+      contentType: 'application/json',
+      url: '/rest/show-follow/' + this.props.show_id,
+      data: JSON.stringify(this.state),
+      success: (data) => {
+        if(data.redirect)
+          window.location = data.redirect;
+        if(data.success)
+          this.updateState(data);
+        else
+          this.onFailure(data);
         },
        error: this.onFailure
     });

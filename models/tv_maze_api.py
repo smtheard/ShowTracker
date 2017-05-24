@@ -49,7 +49,7 @@ class TVMazeAPI(object):
 
     for tvm_episode in tvm_show.episodes:
       episode = Episode(
-        first_air=parse(tvm_episode.airstamp).astimezone(utc),
+        first_air=tvm_episode.airstamp and parse(tvm_episode.airstamp).astimezone(utc),
         number=tvm_episode.episode_number,
         tvmaze_id=tvm_episode.maze_id,
         season=tvm_episode.season_number,
@@ -97,7 +97,7 @@ class TVMazeAPI(object):
     for tvm_episode in tvm_show.episodes:
       ep = episodes_by_tvm_id.get(tvm_episode.maze_id)
       if(ep):
-          ep.first_air=parse(tvm_episode.airstamp).astimezone(utc),
+          ep.first_air=tvm_episode.airstamp and parse(tvm_episode.airstamp).astimezone(utc),
           ep.number=tvm_episode.episode_number,
           ep.tvmaze_id=tvm_episode.maze_id,
           ep.season=tvm_episode.season_number,

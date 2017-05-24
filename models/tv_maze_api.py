@@ -70,7 +70,7 @@ class TVMazeAPI(object):
 
   @staticmethod
   def refresh(show, tvm_id):
-    tvm_show = TVMazeAPI.tvm.get_show(show_name=show_name, maze_id=tvmaze_id)
+    tvm_show = TVMazeAPI.tvm.get_show(show_name=show.title, maze_id=tvmaze_id)
 
     show.thetvdb_id=tvm_show.externals and tvm_show.externals.get("thetvdb"),
     show.tvrage_id=tvm_show.externals and tvm_show.externals.get("tvrage"),

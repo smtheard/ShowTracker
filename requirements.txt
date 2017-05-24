@@ -6,4 +6,4 @@ bottle_beaker
 psycopg2
 bcrypt
 pytvmaze
-slugify
+awesome-slugify

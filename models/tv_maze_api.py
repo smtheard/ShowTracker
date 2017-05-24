@@ -48,8 +48,6 @@ class TVMazeAPI(object):
     sa_session.flush()
 
     for tvm_episode in tvm_show.episodes:
-      print(tvm_episode.airstamp)
-      print(parse(tvm_episode.airstamp))
       episode = Episode(
         first_air=parse(tvm_episode.airstamp).astimezone(utc),
         number=tvm_episode.episode_number,

@@ -43,6 +43,21 @@ def shows(session):
   if(user_id):
     user = sa_session.query(User).filter(User.id == user_id).first()
 
-  shows = sa_session.query(Show).options(joinedload('show_follows')).limit(100).all()
+  shows = sa_session.query(Show).options(joinedload('show_follows')).limit(500).all()
 
   return dict(shows=[show.to_card_dict(user=user) for show in shows], success=True)
+
+@app.post('/rest/shows')
+def shows_query(session):
+  query = bottle.request.json["query"]
+
+  user_id = session.get("user_id")
+  user = None
+
+  if(user_id):
+    user = sa_session.query(User).filter(User.id == user_id).first()
+
+  shows = sa_session.query(Show).filter(Show.title.ilike('%' + query +'%')).options(joinedload('show_follows')).limit(100).all()
+
+  return dict(shows=[show.to_card_dict(user=user) for show in shows], success=True)
+

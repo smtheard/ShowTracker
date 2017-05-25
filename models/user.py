@@ -11,7 +11,7 @@ class User(config.Base):
   slug = sa.Column(sa.Text, unique=True, nullable=False, index=True)
   email = sa.Column(sa.Text, unique=True)
   password_hash = sa.Column(sa.Text)
-  created_at = sa.Column(sa.DateTime(timezone=True))
+  created_at = sa.Column(sa.DateTime())
 
   def to_page_dict(self):
     return { "id": self.id, 

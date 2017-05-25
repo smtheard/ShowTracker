@@ -7,7 +7,7 @@ class Genre(config.Base):
 
   id = sa.Column(sa.Integer, sa.Sequence('genre_id_seq'), primary_key=True)
   name = sa.Column(sa.Text, nullable=False)
-  created_at = sa.Column(sa.DateTime(timezone=True))
+  created_at = sa.Column(sa.DateTime())
 
   def __init__(self, name):
     self.name = name

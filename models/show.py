@@ -1,6 +1,8 @@
 import config
 import sqlalchemy as sa
 from datetime import datetime
+from util.dateutil import UTC
+utc = UTC()
 
 from config import sa_session
 
@@ -21,13 +23,13 @@ class Show(config.Base):
   tvmaze_id = sa.Column(sa.Integer)
   tvmaze_img_src = sa.Column(sa.Text)
   tvmaze_rating = sa.Column(sa.Text)
-  premiere_date = sa.Column(sa.DateTime(timezone=True))
+  premiere_date = sa.Column(sa.DateTime())
   schedule_days = sa.Column(sa.Text)
   schedule_time = sa.Column(sa.Text)
   tvmaze_url = sa.Column(sa.Text)
-  tvmaze_updated_at = sa.Column(sa.DateTime(timezone=True))
-  last_cached_at = sa.Column(sa.DateTime(timezone=True))
-  created_at = sa.Column(sa.DateTime(timezone=True))
+  tvmaze_updated_at = sa.Column(sa.DateTime())
+  last_cached_at = sa.Column(sa.DateTime())
+  created_at = sa.Column(sa.DateTime())
 
   episodes = sa.orm.relationship("Episode", backref="show")
   network = sa.orm.relationship("Network", uselist=False, backref="show")
@@ -60,10 +62,10 @@ class Show(config.Base):
     return "/show/" + self.slug
 
   def next_episode(self):
-    sorted_eps = sorted(self.episodes, key=lambda ep: ep.first_air_ts())
+    sorted_eps = sorted(self.episodes, key=lambda ep: ep.first_air)
     for episode in sorted_eps:
-      if episode.first_air_ts() > datetime.now():
-        return episode.first_air_ts().strftime("%B %d, %Y")
+      if episode.first_air > datetime.utcnow():
+        return episode.first_air.strftime("%B %d, %Y")
     return "TBA"
 
   def __init__(self, **kwargs):

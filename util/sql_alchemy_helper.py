@@ -26,4 +26,4 @@ class SQLAlchemyHelper(object):
     if(not instance):
       return current_slug
     else:
-      return SQLAlchemyHelper.generate_slug(session, model, current_slug, (number and number + 1) or 2)
+      return SQLAlchemyHelper.generate_slug(session, model, slug, (number and number + 1) or 2)

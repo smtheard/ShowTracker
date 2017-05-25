@@ -77,7 +77,6 @@ class TVMazeAPI(object):
     show.imdb_id=tvm_show.externals and tvm_show.externals.get("imdb")
     show.tvmaze_id=tvm_show.maze_id
     show.title=tvm_show.name
-    show.slug=sa_helper.generate_slug(sa_session, Show, slugify.slugify(tvm_show.name))
     show.description=tvm_show.summary
     show.tvmaze_img_src=tvm_show.image and tvm_show.image.get("original")
     show.tvmaze_rating=tvm_show.rating and tvm_show.rating.get("average")

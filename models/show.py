@@ -64,7 +64,7 @@ class Show(config.Base):
   def next_episode(self):
     sorted_eps = sorted(self.episodes, key=lambda ep: ep.first_air)
     for episode in sorted_eps:
-      if episode.first_air > datetime.now(utc):
+      if episode.first_air > datetime.utcnow():
         return episode.first_air.strftime("%B %d, %Y")
     return "TBA"
 

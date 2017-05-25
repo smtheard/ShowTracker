@@ -15,7 +15,8 @@ def run():
     app=app,
     host='localhost',
     port='8080',
-    reloader=not PROD
+    reloader=not PROD,
+    server='paste'
   )
 
 session_opts = {

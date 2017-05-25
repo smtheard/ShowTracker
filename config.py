@@ -21,7 +21,7 @@ db_plugin = sqlalchemy.Plugin(
 Session = sessionmaker(bind=engine)
 sa_session = Session()
 
-app = bottle.Bottle()
+app = application = bottle.Bottle()
 
 app.install(db_plugin)
 app.install(bottle_session.SessionPlugin(cookie_lifetime=31540000)) # 1 year in seconds

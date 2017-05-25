@@ -8,7 +8,7 @@ class ShowGenre(config.Base):
   id = sa.Column(sa.Integer, sa.Sequence('show_genre_id_seq'), primary_key=True)
   show_id = sa.Column(sa.Integer, nullable=False)
   genre_id = sa.Column(sa.Integer, nullable=False)
-  created_at = sa.Column(sa.DateTime(timezone=True))
+  created_at = sa.Column(sa.DateTime())
 
   def __init__(self, show_id, genre_id):
     self.show_id = show_id

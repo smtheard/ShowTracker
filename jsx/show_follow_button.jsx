@@ -1,13 +1,15 @@
 var ShowFollowButton = React.createClass({
   getInitialState: function() {
-    return {following: false};
+    return {following: this.props.prefetchedState && this.props.prefetchedState.following};
   },
 
   componentDidMount: function() {
-    if(this.props.prefetchedState)
-      this.updateState(this.props.prefetchedState);
-    else
+    if(!this.props.prefetchedState)
       this.fetch();
+  },
+
+  componentWillReceiveProps: function(nextProps) {
+    this.setState({following: nextProps.prefetchedState && nextProps.prefetchedState.following});
   },
 
   fetch: function() {

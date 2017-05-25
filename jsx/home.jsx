@@ -59,7 +59,7 @@ var Home = React.createClass({
     return (
       <div>
         <form onSubmit={this.queryShows}>
-          <div style={{width: "100%"}} className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+          <div style={{width: "360px", display: "table", margin:"0 auto"}} className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
             <input value={this.state.query} onChange={this.updateQuery} className="mdl-textfield__input" type="text" id="search" />
             <label className="mdl-textfield__label" htmlFor="search">Search Shows...</label>
           </div>

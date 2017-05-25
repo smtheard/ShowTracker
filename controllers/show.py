@@ -1,3 +1,4 @@
+import bottle
 from sqlalchemy.orm import joinedload
 from config import app, br, sa_session
 
@@ -16,6 +17,9 @@ def root(session, slug):
   show = sa_session.query(Show) \
     .options(joinedload('episodes.episode_watches')) \
     .filter(Show.slug==slug).first()
+
+  if(not show):
+    bottle.abort(404, "URL Not Found")
 
   episodes_by_season = defaultdict(lambda: list())
   for episode in show.episodes:

@@ -17,6 +17,9 @@ def user(session, slug):
 
   user_being_viewed = sa_session.query(User).filter(User.slug == slug).first()
 
+  if(not user_being_viewed):
+    bottle.abort(404, "URL Not Found")
+
   followed_shows = sa_session.query(Show) \
     .join(Show.show_follows) \
     .filter(ShowFollow.user_id==user_being_viewed.id) \

@@ -8,7 +8,7 @@ class EpisodeWatch(config.Base):
   id = sa.Column(sa.Integer, sa.Sequence('watched_episode_id_seq'), primary_key=True)
   episode_id = sa.Column(sa.Integer, sa.ForeignKey("episode.id"), nullable=False)
   user_id = sa.Column(sa.Integer, sa.ForeignKey("user.id"), nullable=False)
-  created_at = sa.Column(sa.DateTime(timezone=True))
+  created_at = sa.Column(sa.DateTime())
 
   episodes = sa.orm.relationship("Episode", backref="EpisodeWatch")
 

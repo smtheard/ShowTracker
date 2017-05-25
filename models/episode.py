@@ -11,13 +11,13 @@ class Episode(config.Base):
   description = sa.Column(sa.Text)
   image_src = sa.Column(sa.Text)
   show_id = sa.Column(sa.Integer, sa.ForeignKey("show.id"), nullable=False)
-  first_air = sa.Column(sa.DateTime(timezone=True))
+  first_air = sa.Column(sa.DateTime())
   season = sa.Column(sa.Integer)
   is_special = sa.Column(sa.Boolean)
-  last_cached_at = sa.Column(sa.DateTime(timezone=True))
+  last_cached_at = sa.Column(sa.DateTime())
   tvmaze_id = sa.Column(sa.Integer)
   tvmaze_url = sa.Column(sa.Text)
-  created_at = sa.Column(sa.DateTime(timezone=True))
+  created_at = sa.Column(sa.DateTime())
 
   episode_watches = sa.orm.relationship("EpisodeWatch", backref="episode")
 

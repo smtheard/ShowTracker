@@ -8,7 +8,7 @@ class ShowFollow(config.Base):
   id = sa.Column(sa.Integer, sa.Sequence('show_follow_id_seq'), primary_key=True)
   show_id = sa.Column(sa.Integer, sa.ForeignKey("show.id"), nullable=False)
   user_id = sa.Column(sa.Integer, sa.ForeignKey("user.id"), nullable=False)
-  created_at = sa.Column(sa.DateTime(timezone=True))
+  created_at = sa.Column(sa.DateTime())
 
   def __init__(self, show_id, user_id):
     self.show_id = show_id

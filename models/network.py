@@ -8,7 +8,7 @@ class Network(config.Base):
   id = sa.Column(sa.Integer, sa.Sequence('network_id_seq'), primary_key=True)
   name = sa.Column(sa.Text, nullable=False)
   image_src = sa.Column(sa.Text)
-  created_at = sa.Column(sa.DateTime(timezone=True))
+  created_at = sa.Column(sa.DateTime())
 
   def __init__(self, name, image_src=None):
     self.name = name

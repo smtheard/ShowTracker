@@ -1,4 +1,5 @@
 from sqlalchemy.orm import joinedload
+from sqlalchemy import func
 from config import app, br, sa_session
 
 from models.show import Show
@@ -15,7 +16,7 @@ def user(session, slug):
   if(current_user_id):
     current_user = sa_session.query(User).filter(User.id == current_user_id).first()
 
-  user_being_viewed = sa_session.query(User).filter(User.slug == slug).first()
+  user_being_viewed = sa_session.query(User).filter(func.lower(User.slug) == func.lower(slug)).first()
 
   followed_shows = sa_session.query(Show) \
     .join(Show.show_follows) \

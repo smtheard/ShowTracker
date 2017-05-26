@@ -1,4 +1,5 @@
 from sqlalchemy.orm import joinedload
+from sqlalchemy import func
 from config import app, br, sa_session
 
 from models.show import Show
@@ -15,7 +16,7 @@ def root(session, slug):
 
   show = sa_session.query(Show) \
     .options(joinedload('episodes.episode_watches')) \
-    .filter(Show.slug==slug).first()
+    .filter(func.lower(Show.slug)==func.lower(slug)).first()
 
   episodes_by_season = defaultdict(lambda: list())
   for episode in show.episodes:

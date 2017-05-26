@@ -2,7 +2,19 @@
 
 var ShowCard = React.createClass({
   getInitialState: function() {
-    return {expanded: false, opacity: 3};
+    return {
+      expanded: false,
+      opacity: 3,
+      is_followed_by_user: this.props.is_followed_by_user,
+      show_id: this.props.show_id
+    };
+  },
+
+  componentWillReceiveProps: function(nextProps) {
+    this.setState({
+      is_followed_by_user: nextProps.is_followed_by_user,
+      show_id: nextProps.show_id
+    });
   },
 
   truncate: function(str) {
@@ -46,7 +58,7 @@ var ShowCard = React.createClass({
         <div onClick={this.toggleDesc} className="mdl-card__supporting-text" style={{height: "75px", overflowY: "auto"}}>
           {this.state.expanded ? this.props.description : this.truncate(this.props.description)}
         </div>
-        <bottlereact.ShowFollowButton prefetchedState={{following: this.props.is_followed_by_user}} show_id={this.props.show_id} style={{width: "100%"}}/>
+        <bottlereact.ShowFollowButton prefetchedState={{following: this.state.is_followed_by_user}} show_id={this.state.show_id} style={{width: "100%"}}/>
       </div>
     );
   }

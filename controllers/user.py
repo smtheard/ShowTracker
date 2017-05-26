@@ -1,3 +1,4 @@
+import bottle
 from sqlalchemy.orm import joinedload
 from sqlalchemy import func
 from config import app, br, sa_session
@@ -17,6 +18,9 @@ def user(session, slug):
     current_user = sa_session.query(User).filter(User.id == current_user_id).first()
 
   user_being_viewed = sa_session.query(User).filter(func.lower(User.slug) == func.lower(slug)).first()
+
+  if(not user_being_viewed):
+    bottle.abort(404, "URL Not Found")
 
   followed_shows = sa_session.query(Show) \
     .join(Show.show_follows) \

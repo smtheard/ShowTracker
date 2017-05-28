@@ -52,7 +52,7 @@ class Show(config.Base):
              "premiere_date": self.premiere_date.strftime("%B %d, %Y"),
              "status": self.status,
              "country": self.country,
-             "network": self.network.name,
+             "network": self.network and self.network.name,
              "imdb_url": "https://www.imdb.com/title/" + self.imdb_id,
              "schedule": self.schedule() }
 

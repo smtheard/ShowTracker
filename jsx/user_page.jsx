@@ -53,20 +53,21 @@ var UserPage = React.createClass({
 
     var upcoming_episodes = this.filterUpcoming();
     var recent_episodes = this.filterRecent();
-    console.log(upcoming_episodes);
     var calendar_width = 12;
-    if(upcoming_episodes.length && recent_episodes.length)
+    var left_bar_visible = upcoming_episodes.length || recent_episodes.length;
+    if(left_bar_visible)
       calendar_width = 8;
+
     return (
       <div className="mdl-grid">
-        {upcoming_episodes.length && recent_episodes.length ?
+        {left_bar_visible ?
           <div className="mdl-cell mdl-cell--4-col mdl-card mdl-shadow--2dp">
-            <bottlereact.EpisodeList title={"Upcoming"} episodes={upcoming_episodes} />
-            <bottlereact.EpisodeList title={"Recent"} episodes={recent_episodes} />
+            {upcoming_episodes.length ? <bottlereact.EpisodeList title={"Upcoming"} episodes={upcoming_episodes} /> : <span/>}
+            {recent_episodes.length ? <bottlereact.EpisodeList title={"Recent"} episodes={recent_episodes} /> : <span/>}
           </div>
           : <span/> }
         <div className={"mdl-cell mdl-cell--"+ calendar_width + "-col mdl-card mdl-shadow--2dp"} style={{minHeight: "600px"}}>
-          Episode Calendar
+          <h5 style={{margin: "16px"}}>Episode Calendar</h5>
           <npm.BigCalendar
             events={episode_events}
             startAccessor='start'

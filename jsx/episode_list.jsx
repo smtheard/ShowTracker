@@ -43,7 +43,7 @@ var EpisodeList = React.createClass({
     return (
       <div className="mdl-card mdl-shadow--2dp" style={{margin: "5px"}}>
         <div className="mdl-card__title">
-          <h2 className="mdl-card__title-text">{this.props.title} Episodes</h2>
+          <h5 className="mdl-card__title-text">{this.props.title} Episodes</h5>
         </div>
         <ul className="mdl-list">
           {episode_rows}

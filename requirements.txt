@@ -8,3 +8,4 @@ bcrypt
 pytvmaze
 awesome-slugify
 paste
+python-dateutil

@@ -1,7 +1,7 @@
 bottle
 bottle_session
 bottle_sqlalchemy
-bottle_react
+bottle_react==0.4.0
 bottle_beaker
 psycopg2
 bcrypt

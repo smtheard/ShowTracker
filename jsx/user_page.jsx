@@ -43,7 +43,7 @@ var UserPage = React.createClass({
 
   render: function() {
     var show_cards = this.state.shows.map(show => {
-      return (<bottlereact.ShowCard {...show} width={this.width()}/>);
+      return (<bottlereact.ShowCard key={show.show_id} {...show} width={this.width()}/>);
     });
 
     var episode_events = this.state.episodes.map(episode => {
@@ -67,7 +67,7 @@ var UserPage = React.createClass({
           </div>
           : <span/> }
         <div className={"mdl-cell mdl-cell--"+ calendar_width + "-col mdl-card mdl-shadow--2dp"} style={{minHeight: "600px"}}>
-          <h5 style={{margin: "16px"}}>Episode Calendar</h5>
+          <h5 style={{textAlign: "center", margin: "16px"}}>Episode Calendar</h5>
           <npm.BigCalendar
             events={episode_events}
             startAccessor='start'

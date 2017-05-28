@@ -38,7 +38,7 @@ var EpisodeList = React.createClass({
   render: function() {
     var episode_rows = null;
     episode_rows = this.state.episodes.map(episode => {
-      return (<EpisodeRow {...episode} />);
+      return (<EpisodeRow key={episode.id} {...episode} />);
     });
     return (
       <div className="mdl-card mdl-shadow--2dp" style={{margin: "5px"}}>

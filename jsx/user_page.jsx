@@ -58,35 +58,47 @@ var UserPage = React.createClass({
     if(left_bar_visible)
       calendar_width = 8;
 
-    return (
-      <div className="mdl-grid">
-        {left_bar_visible ?
-          <div className="mdl-cell mdl-cell--4-col mdl-card mdl-shadow--2dp">
-            {upcoming_episodes.length ? <bottlereact.EpisodeList title={"Upcoming"} episodes={upcoming_episodes} /> : <span/>}
-            {recent_episodes.length ? <bottlereact.EpisodeList title={"Recent"} episodes={recent_episodes} /> : <span/>}
-          </div>
-          : <span/> }
-        <div className={"mdl-cell mdl-cell--"+ calendar_width + "-col mdl-card mdl-shadow--2dp"} style={{minHeight: "600px"}}>
-          <h5 style={{textAlign: "center", margin: "16px"}}>Episode Calendar</h5>
-          <npm.BigCalendar
-            events={episode_events}
-            startAccessor='start'
-            endAccessor='end'
-            views={["month"]}
-            components={{event: this.renderEvent}} />
-        </div>
-        <div className="mdl-cell mdl-cell--12-col mdl-card mdl-shadow--2dp">
-          <div className="mdl-layout-title">
-            <div style={{marginTop: "16px", marginLeft: "16px", display: "inline-block"}}>
-              My Shows
+    if(this.props.followed_shows.length) {
+      return (
+        <div className="mdl-grid">
+            {left_bar_visible ?
+              <div className="mdl-cell mdl-cell--4-col mdl-card mdl-shadow--2dp">
+                {upcoming_episodes.length ? <bottlereact.EpisodeList title={"Upcoming"} episodes={upcoming_episodes} /> : <span/>}
+                {recent_episodes.length ? <bottlereact.EpisodeList title={"Recent"} episodes={recent_episodes} /> : <span/>}
+              </div>
+              : <span/> }
+            <div className={"mdl-cell mdl-cell--"+ calendar_width + "-col mdl-card mdl-shadow--2dp"} style={{minHeight: "600px"}}>
+              <h5 style={{textAlign: "center", margin: "16px"}}>Episode Calendar</h5>
+              <npm.BigCalendar
+                events={episode_events}
+                startAccessor='start'
+                endAccessor='end'
+                views={["month"]}
+                components={{event: this.renderEvent}} />
             </div>
-          </div>
-          <div className="mdl-grid">
-            {show_cards}
+            <div className="mdl-cell mdl-cell--12-col mdl-card mdl-shadow--2dp">
+              <div className="mdl-layout-title">
+                <div style={{marginTop: "16px", marginLeft: "16px", display: "inline-block"}}>
+                  My Shows
+                </div>
+              </div>
+              <div className="mdl-grid">
+                {show_cards}
+              </div>
+            </div>
+        </div>
+      )
+    }
+    else {
+      return (
+        <div className="mdl-layout-title">
+          <div style={{textAlign: "center"}}>
+            Profiles are not populated until the user adds to "My Shows"! <br/>
+            <a href="/" style={{textDecoration: "none"}}>Explore Shows</a>
           </div>
         </div>
-      </div>
-    )
+      );
+    }
   }
 });
 

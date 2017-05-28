@@ -1,4 +1,6 @@
 window.npm = {}
+window.React = require("react");
+window.ReactDOM = require("react-dom");
 window.npm.moment = require("moment");
 var BigCalendar = require("react-big-calendar");
 BigCalendar.setLocalizer(
@@ -6,5 +8,3 @@ BigCalendar.setLocalizer(
 );
 window.npm.BigCalendar = BigCalendar;
 window.npm.Tooltip = require("react-portal-tooltip");
-window.React = require("react");
-window.ReactDOM = require("react-dom");

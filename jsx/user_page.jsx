@@ -21,6 +21,26 @@ var UserPage = React.createClass({
     return (<bottlereact.EpisodeEvent {...eventProps.event.props}/>); 
   },
 
+  filterUpcoming: function() {
+    var time7daysInFuture = npm.moment().add(7,'days').startOf('day');
+    var yesterdayEndOfRange =  npm.moment().endOf('day').subtract(1,'day');
+    return this.state.episodes.filter(
+      episode => {
+        return npm.moment(episode.first_air).isBetween(yesterdayEndOfRange, time7daysInFuture);
+      }
+    );
+  },
+
+  filterRecent: function() {
+    var time7daysAgo = npm.moment().subtract(7,'days').startOf('day');
+    var yesterdayEndOfRange =  npm.moment().endOf('day').subtract(1,'day');
+    return this.state.episodes.filter(
+      episode => {
+        return npm.moment(episode.first_air).isBetween(time7daysAgo, yesterdayEndOfRange);
+      }
+    );
+  },
+
   render: function() {
     var show_cards = this.state.shows.map(show => {
       return (<bottlereact.ShowCard {...show} width={this.width()}/>);
@@ -31,13 +51,22 @@ var UserPage = React.createClass({
       return {title: episode.show_title, start: first_air, end: first_air, props: {...episode}}; 
     });
 
+    var upcoming_episodes = this.filterUpcoming();
+    var recent_episodes = this.filterRecent();
+    console.log(upcoming_episodes);
+    var calendar_width = 12;
+    if(upcoming_episodes.length && recent_episodes.length)
+      calendar_width = 8;
     return (
       <div className="mdl-grid">
-        <div className="mdl-cell mdl-cell--4-col mdl-card mdl-shadow--2dp">
-          <bottlereact.EpisodeList mode={"Upcoming"} episodes={this.state.episodes} />
-          <bottlereact.EpisodeList mode={"Recent"} episodes={this.state.episodes} />
-        </div>
-        <div className="mdl-cell mdl-cell--8-col mdl-card mdl-shadow--2dp" style={{minHeight: "600px"}}>
+        {upcoming_episodes.length && recent_episodes.length ?
+          <div className="mdl-cell mdl-cell--4-col mdl-card mdl-shadow--2dp">
+            <bottlereact.EpisodeList title={"Upcoming"} episodes={upcoming_episodes} />
+            <bottlereact.EpisodeList title={"Recent"} episodes={recent_episodes} />
+          </div>
+          : <span/> }
+        <div className={"mdl-cell mdl-cell--"+ calendar_width + "-col mdl-card mdl-shadow--2dp"} style={{minHeight: "600px"}}>
+          Episode Calendar
           <npm.BigCalendar
             events={episode_events}
             startAccessor='start'

@@ -31,45 +31,19 @@ var EpisodeRow = React.createClass({
 var EpisodeList = React.createClass({
   getInitialState: function() {
     return {
-      allEpisodes: this.props.episodes
+      episodes: this.props.episodes
     };
-  },
-
-  filterUpcoming: function() {
-    var time7daysInFuture = npm.moment().add(7,'days').startOf('day');
-    var yesterdayEndOfRange =  npm.moment().endOf('day').subtract(1,'day');
-    return this.state.allEpisodes.filter(
-      episode => {
-        return npm.moment(episode.first_air).isBetween(yesterdayEndOfRange, time7daysInFuture);
-      }
-    );
-  },
-
-  filterRecent: function() {
-    var time7daysAgo = npm.moment().subtract(7,'days').startOf('day');
-    var yesterdayEndOfRange =  npm.moment().endOf('day').subtract(1,'day');
-    return this.state.allEpisodes.filter(
-      episode => {
-        return npm.moment(episode.first_air).isBetween(time7daysAgo, yesterdayEndOfRange);
-      }
-    );
   },
 
   render: function() {
     var episode_rows = null;
-    if(this.props.mode == "Upcoming") {
-      episode_rows = this.filterUpcoming().map(episode => {
-        return (<EpisodeRow {...episode} />);
-      });
-    } else if(this.props.mode == "Recent") {
-      episode_rows = this.filterRecent().map(episode => {
-        return (<EpisodeRow {...episode} />);
-      });
-    }
+    episode_rows = this.state.episodes.map(episode => {
+      return (<EpisodeRow {...episode} />);
+    });
     return (
       <div className="mdl-card mdl-shadow--2dp" style={{margin: "5px"}}>
         <div className="mdl-card__title">
-          <h2 className="mdl-card__title-text">{this.props.mode} Episodes</h2>
+          <h2 className="mdl-card__title-text">{this.props.title} Episodes</h2>
         </div>
         <ul className="mdl-list">
           {episode_rows}

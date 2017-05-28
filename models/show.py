@@ -56,7 +56,9 @@ class Show(config.Base):
              "schedule": self.schedule() }
 
   def schedule(self):
-    return self.schedule_days + " " + datetime.strptime(self.schedule_time, "%H:%M").strftime("%I:%M %p") + " (EST)"
+    if(self.schedule_time and self.schedule_days):
+      return self.schedule_days + " " + datetime.strptime(self.schedule_time, "%H:%M").strftime("%I:%M %p")
+    return ""
 
   def path(self):
     return "/show/" + self.slug

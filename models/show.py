@@ -64,9 +64,9 @@ class Show(config.Base):
     return "/show/" + self.slug
 
   def next_episode(self):
-    sorted_eps = sorted(self.episodes, key=lambda ep: ep.first_air)
+    sorted_eps = sorted(self.episodes, key=lambda ep: ep.first_air or ep.created_at)
     for episode in sorted_eps:
-      if episode.first_air > datetime.utcnow():
+      if episode.first_air and episode.first_air > datetime.utcnow():
         return episode.first_air.strftime("%B %d, %Y")
     return "TBA"
 

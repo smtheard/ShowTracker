@@ -107,7 +107,7 @@ class TVMazeAPI(object):
           ep.show_id=show.id
       else:
         new_ep = Episode(
-          first_air=parse(tvm_episode.airstamp).astimezone(utc).replace(tzinfo=None),
+          first_air=tvm_episode.airstamp and parse(tvm_episode.airstamp).astimezone(utc).replace(tzinfo=None),
           number=tvm_episode.episode_number,
           tvmaze_id=tvm_episode.maze_id,
           season=tvm_episode.season_number,

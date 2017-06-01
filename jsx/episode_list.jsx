@@ -11,7 +11,7 @@ var EpisodeRow = React.createClass({
     return (
       <li className="mdl-list__item mdl-list__item--two-line">
         <span className="mdl-list__item-primary-content">
-          <span>{this.props.show_title}</span>
+           <a href={this.props.show_path} style={{cursor: "pointer", textDecoration: "none"}}>{this.props.show_title}</a>
           <span className="mdl-list__item-sub-title">
             {this.props.season_number}x{this.props.number}
           </span>

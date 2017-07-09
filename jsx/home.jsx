@@ -6,15 +6,15 @@ var Home = React.createClass({
   },
 
   componentWillMount: function() {
-    this.loadAllShows();
+    this.loadShows(0);
     componentHandler.upgradeDom();
   },
 
-  loadAllShows: function() {
+  loadShows: function(page) {
     $.ajax({
        type: 'GET',
        contentType: 'application/json',
-       url: '/rest/shows',
+       url: '/rest/shows/' + page,
        success: (data) => {
           if(data.success)
             this.updateShows(data.shows);
@@ -28,7 +28,7 @@ var Home = React.createClass({
     $.ajax({
        type: 'POST',
        contentType: 'application/json',
-       url: '/rest/shows',
+       url: '/rest/shows/0',
        data: JSON.stringify({query: this.state.query}),
        success: data => {
           if(data.success)

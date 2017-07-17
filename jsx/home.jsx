@@ -69,12 +69,16 @@ var Home = React.createClass({
           <label className="mdl-textfield__label" htmlFor="search">Search Shows...</label>
         </div>
         {show_cards}
-        <npm.ReactPaginate
-          pageCount={this.state.pageCount}
-          breakLabel={<a href="">...</a>}
-          pageRangeDisplayed={5}
-          marginPagesDisplayed={2}
-          onPageChange={this.handlePageClick} />
+        <center>
+          <npm.ReactPaginate
+            pageCount={this.state.pageCount}
+            breakLabel={<a style={{textDecoration: "none"}}>...</a>}
+            pageRangeDisplayed={5}
+            marginPagesDisplayed={2}
+            onPageChange={this.handlePageClick}
+            containerClassName={"paginate-container"}
+            activeClassName={"paginate-active"}  />
+        </center>
       </div>
     )
   }

@@ -5,8 +5,6 @@
     <meta charset="UTF-8" />
     <title>{{title}}</title>
 
-
-
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.blue_grey-blue.min.css"/>
     <link rel="stylesheet" href="http://localhost:8080/static/css/react-big-calendar.css"/>

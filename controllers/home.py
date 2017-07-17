@@ -9,7 +9,7 @@ def root(session):
     user = sa_session.query(User).filter(User.id == user_id).first()
   return br.render_html(
     br.BaseLayout({"current_user": user and user.to_dict()}, [
-      br.Home({})
+      br.Home({"key": "home"})
     ]),
     title="Overseer.TV Show Tracking App"
   )

@@ -13,7 +13,8 @@ def login():
     br.BaseLayout({}, [
       br.Access({
         "callback_url": "/login",
-        "title": "Login"
+        "title": "Login",
+        "key": "login"
         })
       ]
     ),
@@ -46,7 +47,8 @@ def register():
       br.Access({
         "callback_url": "/register",
         "confirm": True,
-        "title": "Register"
+        "title": "Register",
+        "key": "register"
         })
       ]
     ),

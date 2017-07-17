@@ -32,6 +32,7 @@ def root(session, slug):
   props = show.to_page_dict()
   props["episodes_by_season"] = episodes_by_season
   props["next_episode"] = show.next_episode()
+  props["key"] = "show"
   return br.render_html(
     br.BaseLayout({"current_user": user and user.to_dict()}, [
       br.ShowPage(props)

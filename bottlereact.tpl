@@ -5,11 +5,10 @@
     <meta charset="UTF-8" />
     <title>{{title}}</title>
 
-
-
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.blue_grey-blue.min.css"/>
     <link rel="stylesheet" href="http://localhost:8080/static/css/react-big-calendar.css"/>
+    <link rel="stylesheet" href="http://localhost:8080/static/css/style.css"/>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.24/browser.min.js"></script>
     <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>

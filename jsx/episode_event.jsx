@@ -34,7 +34,7 @@ var EpisodeEvent = React.createClass({
     return (
       <div style={{margin: "4px 4px 4px 10px"}}>
         <div id={this.key()} onClick={this.toggleTooltip} style={{cursor: "pointer", lineHeight: "0.9", fontSize:'0.8em', textDecoration: "none"}}>{this.truncate(this.props.show_title)}</div>
-        <div onClick={this.toggleTooltip} style={{fontSize: "12px", float: "left"}}>{this.props.season_number + "x" + this.props.number}</div>
+        <div onClick={this.toggleTooltip} style={{fontSize: "12px", float: "left"}}>{this.props.season_number + "x" + (this.props.number || "0")}</div>
         <bottlereact.WatchButton
           callback={this.toggleWatched}
           prefetchedState={{watched: this.state.watched}}

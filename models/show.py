@@ -49,11 +49,11 @@ class Show(config.Base):
              "title": self.title,
              "image_src": self.tvmaze_img_src,
              "description": self.description,
-             "premiere_date": self.premiere_date.strftime("%B %d, %Y"),
+             "premiere_date": self.premiere_date.strftime("%B %d, %Y") if self.premiere_date else None,
              "status": self.status,
              "country": self.country,
              "network": self.network and self.network.name,
-             "imdb_url": "https://www.imdb.com/title/" + self.imdb_id,
+             "imdb_url": ("https://www.imdb.com/title/" + self.imdb_id) if self.imdb_id else None,
              "schedule": self.schedule() }
 
   def schedule(self):

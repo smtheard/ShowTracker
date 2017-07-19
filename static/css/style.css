@@ -46,3 +46,7 @@
     border: none;
     cursor: default;
 }
+
+#episode-list.mdl-card.mdl-shadow--2dp{
+    min-width: 330px !important;
+}

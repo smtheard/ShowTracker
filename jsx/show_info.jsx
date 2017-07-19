@@ -47,12 +47,13 @@ var ShowInfo = React.createClass({
             {this.nullableRow("Network", this.props.network_name)}
             {this.nullableRow("Schedule", this.props.schedule)}
         </table>
-        <a style={{position: "absolute", right: 0, bottom: 0, margin: "5px" }}
+        {this.props.imdb_url ?
+          <a style={{position: "absolute", right: 0, bottom: 0, margin: "5px" }}
            target="_blank" rel="noopener noreferrer" href={this.props.imdb_url}>
           <img src="http://ia.media-imdb.com/images/M/MV5BMTk3ODA4Mjc0NF5BMl5BcG5nXkFtZTgwNDc1MzQ2OTE@._V1_.png" 
                alt="IMDB"
                style={{height:"28px", width:"60px"}}/>
-        </a>
+        </a> : <span/>}
       </div>
     );
   }

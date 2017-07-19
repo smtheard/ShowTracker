@@ -62,7 +62,7 @@ var UserPage = React.createClass({
       return (
         <div className="mdl-grid">
             {left_bar_visible ?
-              <div className="mdl-cell mdl-cell--4-col mdl-card mdl-shadow--2dp">
+              <div id="episode-list" className="mdl-cell mdl-cell--4-col mdl-card mdl-shadow--2dp">
                 {upcoming_episodes.length ? <bottlereact.EpisodeList title={"Upcoming"} episodes={upcoming_episodes} /> : <span/>}
                 {recent_episodes.length ? <bottlereact.EpisodeList title={"Recent"} episodes={recent_episodes} /> : <span/>}
               </div>

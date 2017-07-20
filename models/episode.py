@@ -27,7 +27,7 @@ class Episode(config.Base):
       "title": self.title,
       "description": self.description,
       "image_src": self.image_src,
-      "first_air": self.first_air.strftime("%B %d, %Y") if self.first_air else "TBA",
+      "first_air": self.first_air or "TBA",
       "is_special": self.is_special,
       "number": self.number,
       "season_number": self.season,

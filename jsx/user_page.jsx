@@ -47,7 +47,7 @@ var UserPage = React.createClass({
     });
 
     var episode_events = this.state.episodes.map(episode => {
-      var first_air = npm.moment(episode.first_air);
+      var first_air = npm.moment.utc(episode.first_air).local();
       return {title: episode.show_title, start: first_air, end: first_air, props: {...episode}}; 
     });
 

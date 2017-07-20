@@ -41,7 +41,7 @@ var ShowInfo = React.createClass({
         <bottlereact.ShowFollowButton show_id={this.props.show_id} style={{width: "100%"}} />
         <table className="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp" style={{width: "100%", tableLayout:"fixed"}}>
             {this.nextEpisode()}
-            {this.nullableRow("Premiere Date", this.props.premiere_date)}
+            {this.nullableRow("Premiere Date", npm.moment(this.props.premiere_date).format("MMMM D, YYYY"))}
             {this.nullableRow("Status", this.props.status)}
             {this.nullableRow("Country", this.props.country)}
             {this.nullableRow("Network", this.props.network_name)}

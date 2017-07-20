@@ -23,7 +23,7 @@ var EpisodeCard = React.createClass({
           <bottlereact.WatchButton callback={this.props.watch_button_callback} prefetchedState={{watched: this.state.watched_by_user}} episode_id={this.state.id} />
         </div>
         <div className="mdl-card__supporting-text" style={{overflowY: "auto"}}>
-          Air Date: {this.state.first_air}
+          Air Date: {npm.moment.utc(this.state.first_air).tz(npm.moment.tz.guess()).format("MM/DD/YYYY h:mm A z")}
         </div>
 
         <div className="mdl-card__supporting-text" style={{overflowY: "auto"}}>

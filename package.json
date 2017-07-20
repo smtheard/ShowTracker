@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "devDependencies": {},
   "dependencies": {
-    "moment": "^2.18.1",
+    "moment-timezone": "^0.5.13",
     "react": "^15.5.4",
     "react-big-calendar": "^0.14.0",
     "react-dom": "^15.5.4",

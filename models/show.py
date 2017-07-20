@@ -49,7 +49,7 @@ class Show(config.Base):
              "title": self.title,
              "image_src": self.tvmaze_img_src,
              "description": self.description,
-             "premiere_date": self.premiere_date.strftime("%B %d, %Y") if self.premiere_date else None,
+             "premiere_date": self.premiere_date,
              "status": self.status,
              "country": self.country,
              "network": self.network and self.network.name,
@@ -68,7 +68,7 @@ class Show(config.Base):
     sorted_eps = sorted(self.episodes, key=lambda ep: ep.first_air or ep.created_at)
     for episode in sorted_eps:
       if episode.first_air and episode.first_air > datetime.utcnow():
-        return episode.first_air.strftime("%B %d, %Y")
+        return episode.first_air
     return "TBA"
 
   def __init__(self, **kwargs):

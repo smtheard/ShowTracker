@@ -25,11 +25,11 @@ var ShowInfo = React.createClass({
       return "";
     return (
       <tr>
-        <td className="mdl-data-table__cell--non-numeric" style={{whiteSpace: "normal", wordWrap:"break-word", textAlign:"right"}}>
+        <td className="mdl-data-table__cell--non-numeric" style={{whiteSpace: "normal", wordWrap:"break-word", textAlign:"right", width: "135px"}}>
           Next Episode:
         </td>
         <td className="mdl-data-table__cell--non-numeric" style={{whiteSpace: "normal", wordWrap:"break-word", textAlign:"left"}}>
-          {this.props.next_episode ? this.props.next_episode : "TBA"}
+          {this.props.next_episode && this.props.next_episode != "TBA" ? npm.moment.utc(this.props.next_episode).tz(npm.moment.tz.guess()).format("MMMM D, YYYY h:mm A z") : "TBA"}
         </td>
       </tr>
     );

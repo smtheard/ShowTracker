@@ -7,5 +7,5 @@ psycopg2
 bcrypt
 pytvmaze
 awesome-slugify
-paste
+tornado
 python-dateutil

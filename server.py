@@ -16,7 +16,7 @@ def run():
     host='localhost',
     port='8080',
     reloader=not PROD,
-    server='paste'
+    server='tornado'
   )
 
 session_opts = {

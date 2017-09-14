@@ -1,6 +1,8 @@
 ### What is Overseer?:
 Useful Links:
+
 My Profile: http://www.overseer.tv/user/smt
+
 A Show: http://www.overseer.tv/show/Game-of-Thrones
 
 The main purpose of overseer is to help you remember what episode of a show you left off on. As you can see on my profile, I watch a lot of shows, so this is very useful to me. I hope that other power-watchers find it useful as well.

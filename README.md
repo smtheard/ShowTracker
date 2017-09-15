@@ -1,4 +1,4 @@
-### What is Overseer?:
+### What is Overseer?
 Useful Links:
 
 My Profile: http://www.overseer.tv/user/smt

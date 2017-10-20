@@ -1,4 +1,3 @@
-// require episode_card.jsx
 // require watch_button.jsx
 
 var EpisodeCard = React.createClass({

@@ -43,6 +43,7 @@ var Home = React.createClass({
     // [{id: 1, title: "Game of Thrones", image_src: "www.gameofthrones.com/image/5", ...},
     //  {id: 2, title: "Billions", ...}]
     this.setState({shows: data.shows, pageCount: parseInt(data.page_count) || 0});
+    new Blazy({}).revalidate();
   },
 
   updateQuery: function(event) {

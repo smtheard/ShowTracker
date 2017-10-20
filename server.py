@@ -1,5 +1,6 @@
 import bottle, sys
 import routes
+from util import json_monkey_patch
 
 PROD = '--prod' in sys.argv
 

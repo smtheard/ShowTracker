@@ -36,6 +36,16 @@ class Episode(config.Base):
       "watched_by_user": bool(filter(lambda uid: uid == user.id, map(lambda ew: ew.user_id, self.episode_watches))) if user else False
     }
 
+  def to_user_dict(self, user=None):
+    return {
+      "id": self.id,
+      "first_air": self.first_air or "TBA",
+      "number": self.number,
+      "season_number": self.season,
+      "show_title": self.show.title,
+      "show_path": self.show.path(),
+      "watched_by_user": bool(filter(lambda uid: uid == user.id, map(lambda ew: ew.user_id, self.episode_watches))) if user else False
+    }
   def __init__(self, **kwargs):
     for key, value in kwargs.items():
       setattr(self, key, value)

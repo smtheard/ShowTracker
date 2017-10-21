@@ -34,7 +34,7 @@ def user(session, slug):
 
   props = user_being_viewed.to_page_dict()
   props["followed_shows"] = map(lambda show: show.to_card_dict(user_being_viewed), followed_shows)
-  props["episodes"] = map(lambda episode: episode.to_dict(current_user), recent_episodes)
+  props["episodes"] = map(lambda episode: episode.to_user_dict(current_user), recent_episodes)
   props["key"] = "user"
   return br.render_html(
     br.BaseLayout({"current_user": current_user and current_user.to_dict()}, [

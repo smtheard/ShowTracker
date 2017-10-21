@@ -10,18 +10,13 @@ The main purpose of overseer is to help you remember what episode of a show you 
 
 ### Getting Started:
 
-Webpack (Bundles NPM Dependencies only):
-```
-sudo npm install webpack -g
-```
-
 NPM Dependencies:
 ```
 npm install
-webpack
+npm run bundle
 ```
 
-This app is a little different, you only need to re-run webpack if you include another NPM dependency, so no reason to run with the --watch arg.
+This app is a little different, you only need to re-run npm run bundle if you include another NPM dependency, so no reason to run with the --watch arg.
 
 Make sure apt (or apt-get) is up to date:
 ```bash

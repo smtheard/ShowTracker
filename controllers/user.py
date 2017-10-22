@@ -1,4 +1,6 @@
 import bottle
+import datetime
+import dateutil.relativedelta
 from sqlalchemy.orm import joinedload
 from sqlalchemy import func
 from config import app, br, sa_session
@@ -27,7 +29,10 @@ def user(session, slug):
     .filter(ShowFollow.user_id==user_being_viewed.id) \
     .options(joinedload("show_follows"))
 
+  two_months = dateutil.relativedelta.relativedelta(months=2)
+  now = datetime.datetime.now()
   recent_episodes = sa_session.query(Episode) \
+    .filter(Episode.first_air.between( now - two_months, now + two_months )) \
     .filter(Episode.show_id.in_(map(lambda show: show.id, followed_shows))) \
     .options(joinedload("episode_watches")) \
     .options(joinedload("show"))

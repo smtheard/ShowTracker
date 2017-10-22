@@ -20,7 +20,7 @@
   </head>
 
   <body>
-    <script type="text/javascript" src="/static/js/bundle.js" charset="utf-8"></script>
+    <script type="text/javascript" src={{"/static/js/bundle.js.gz" if PROD else "/static/js/bundle.js"}} charset="utf-8"></script>
     {{! deps }}
     <div id="__body__">
 

@@ -28,4 +28,6 @@ app = application = bottle.Bottle()
 app.install(db_plugin)
 app.install(bottle_session.SessionPlugin(cookie_lifetime=31540000)) # 1 year in seconds
 
-br = BottleReact(app, prod=PROD)
+
+
+br = BottleReact(app, prod=PROD, default_render_html_kwargs={"PROD": PROD})

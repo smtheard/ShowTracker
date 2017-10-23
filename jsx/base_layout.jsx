@@ -1,7 +1,6 @@
 var BaseLayout = React.createClass({
   componentDidMount: function() {
     componentHandler.upgradeDom();
-    new Blazy({}).revalidate();
   },
 
   render: function() {

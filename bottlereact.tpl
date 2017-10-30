@@ -17,7 +17,7 @@
             integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
             crossorigin="anonymous"></script>
     <script src="/static/js/helpers.js"></script>
-    <script src="/overseer_google_analytics.js"></script>
+    <script src="/static/js/overseer_google_analytics.js"></script>
   </head>
 
   <body>

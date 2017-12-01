@@ -23,20 +23,20 @@ var UserPage = React.createClass({
 
   filterUpcoming: function() {
     var time7daysInFuture = npm.moment().add(7,'days').startOf('day');
-    var yesterdayEndOfRange =  npm.moment().endOf('day').subtract(1,'day');
+    var now =  npm.moment();
     return this.state.episodes.filter(
       episode => {
-        return npm.moment(episode.first_air).isBetween(yesterdayEndOfRange, time7daysInFuture);
+        return npm.moment(episode.first_air).isBetween(now, time7daysInFuture);
       }
     );
   },
 
   filterRecent: function() {
     var time7daysAgo = npm.moment().subtract(7,'days').startOf('day');
-    var yesterdayEndOfRange =  npm.moment().endOf('day').subtract(1,'day');
+    var now =  npm.moment();
     return this.state.episodes.filter(
       episode => {
-        return npm.moment(episode.first_air).isBetween(time7daysAgo, yesterdayEndOfRange);
+        return npm.moment(episode.first_air).isBetween(time7daysAgo, now);
       }
     );
   },

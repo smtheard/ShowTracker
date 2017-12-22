@@ -5,8 +5,6 @@ from datetime import datetime
 from util.dateutil import UTC
 utc = UTC()
 
-from config import sa_session
-
 class Show(config.Base):
   __tablename__ = 'show'
 

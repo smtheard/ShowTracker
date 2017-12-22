@@ -3,7 +3,7 @@ import datetime
 import dateutil.relativedelta
 from sqlalchemy.orm import joinedload
 from sqlalchemy import func
-from config import app, br, sa_session
+from config import app, br, Session
 
 from models.show import Show
 from models.user import User
@@ -16,6 +16,7 @@ from collections import defaultdict
 def user(session, slug):
   current_user = None
   current_user_id = session.get("user_id")
+  sa_session = Session()
   if(current_user_id):
     current_user = sa_session.query(User).filter(User.id == current_user_id).first()
 

@@ -3,7 +3,7 @@ import bottle
 import math
 from sqlalchemy.orm import joinedload
 from sqlalchemy import func
-from config import app, br, sa_session
+from config import app, br, Session
 
 from models.show import Show
 from models.show_follow import ShowFollow
@@ -15,6 +15,8 @@ from collections import defaultdict
 def root(session, slug):
   user = None
   user_id = session.get("user_id")
+
+  sa_session = Session()
   if(user_id):
     user = sa_session.query(User).filter(User.id == user_id).first()
 
@@ -45,6 +47,7 @@ def shows_by_page(session, page):
   user_id = session.get("user_id")
   user = None
 
+  sa_session = Session()
   if(user_id):
     user = sa_session.query(User).filter(User.id == user_id).first()
 

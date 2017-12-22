@@ -1,5 +1,5 @@
 import bottle
-from config import app, br, sa_session
+from config import app, br, Session
 from sqlalchemy.orm import joinedload
 from collections import defaultdict
 
@@ -13,6 +13,7 @@ from models.episode_watch import EpisodeWatch
 def episode_watch(session, episode_id):
   user_id = session.get("user_id")
   if(user_id):
+    sa_session = Session()
     episode_watch = sa_session.query(EpisodeWatch) \
                               .filter(EpisodeWatch.episode_id == episode_id, EpisodeWatch.user_id==user_id) \
                               .first()
@@ -25,6 +26,7 @@ def update_episode_watch(session, episode_id):
   watched = bottle.request.json["watched"]
   user_id = session["user_id"]
   if(user_id):
+    sa_session = Session()
     if(watched):
       sa_session.query(EpisodeWatch) \
                 .filter(EpisodeWatch.episode_id == episode_id, EpisodeWatch.user_id == user_id) \

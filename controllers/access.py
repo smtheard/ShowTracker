@@ -1,5 +1,5 @@
 import bottle
-from config import app, br, sa_session
+from config import app, br, Session
 from util.sql_alchemy_helper import SQLAlchemyHelper as sa_helper
 from models.user import User
 
@@ -26,6 +26,7 @@ def login_submit(session):
   username = bottle.request.json["username"]
   password = bottle.request.json["password"]
   
+  sa_session = Session()
   user = sa_session.query(User).filter_by(username=username).first()
 
   if(user is None):
@@ -59,6 +60,11 @@ def register():
 def register_submit(session):
   username = bottle.request.json["username"]
   password = bottle.request.json["password"]
+
+  if not username or not password:
+    return { "success": False }
+
+  sa_session = Session()
   email = bottle.request.json.get("email")
   user = User(username=username,
               password=password,

@@ -7,7 +7,7 @@ from util.dateutil import UTC
 utc = UTC()
 from dateutil.parser import parse
 from util.sql_alchemy_helper import SQLAlchemyHelper as sa_helper
-from config import sa_session
+from config import Session
 from datetime import datetime
 
 import pytvmaze
@@ -19,6 +19,7 @@ class TVMazeAPI(object):
 
   @staticmethod
   def fetch(show_name=None, tvmaze_id=None):
+    sa_session = Session()
     tvm_show = TVMazeAPI.tvm.get_show(show_name=show_name, maze_id=tvmaze_id)
     
     network = None
@@ -70,6 +71,7 @@ class TVMazeAPI(object):
 
   @staticmethod
   def refresh(show, tvmaze_id):
+    sa_session = Session()
     tvm_show = TVMazeAPI.tvm.get_show(show_name=show.title, maze_id=tvmaze_id)
 
     show.thetvdb_id=tvm_show.externals and tvm_show.externals.get("thetvdb")
@@ -125,6 +127,7 @@ class TVMazeAPI(object):
 
   @staticmethod
   def sync_cache(re_cache_all=False):
+    sa_session = Session()
     tvm_updates = pytvmaze.show_updates().updates
 
     show_objects = sa_session.query(Show).filter(Show.tvmaze_id.in_(tvm_updates.keys()))

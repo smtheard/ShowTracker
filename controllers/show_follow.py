@@ -1,5 +1,5 @@
 import bottle
-from config import app, br, sa_session
+from config import app, br, Session
 from sqlalchemy.orm import joinedload
 from collections import defaultdict
 
@@ -12,6 +12,7 @@ from models.show_follow import ShowFollow
 def show_follow(session, show_id):
   user_id = session.get("user_id")
   if(user_id):
+    sa_session = Session()
     show_follow = sa_session.query(ShowFollow) \
                             .filter(ShowFollow.show_id == show_id, ShowFollow.user_id==user_id) \
                             .first()
@@ -24,6 +25,7 @@ def update_show_follow(session, show_id):
   following = bottle.request.json["following"]
   user_id = session.get("user_id")
   if(user_id):
+    sa_session = Session()
     if(following):
       sa_session.query(ShowFollow) \
                 .filter(ShowFollow.show_id == show_id, ShowFollow.user_id == user_id) \

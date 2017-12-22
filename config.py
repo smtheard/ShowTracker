@@ -21,7 +21,6 @@ db_plugin = sqlalchemy.Plugin(
 )
 
 Session = sessionmaker(bind=engine)
-sa_session = Session()
 
 app = application = bottle.Bottle()
 

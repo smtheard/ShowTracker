@@ -1,5 +1,5 @@
 import bottle
-from config import app, br, sa_session
+from config import app, br, Session
 from sqlalchemy.orm import joinedload
 from collections import defaultdict
 
@@ -10,6 +10,9 @@ from models.show import Show
 def episodes_by_season(session, show_id):
   user = None
   user_id = session.get("user_id")
+
+  sa_session = Session()
+
   if(user_id):
     user = sa_session.query(User).filter(User.id == user_id).first()
 

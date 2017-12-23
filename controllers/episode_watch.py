@@ -45,6 +45,7 @@ def update_episode_watch(session, episode_id):
 def episode_watches_for_show(session, show_id):
   user_id = session.get("user_id")
   if(user_id):
+    sa_session = Session()
     episodes_watched = sa_session.query(EpisodeWatch) \
                               .filter(EpisodeWatch.user_id == user_id) \
                               .join(EpisodeWatch.episodes) \
@@ -60,6 +61,7 @@ def update_episode_watches_for_show(session, show_id):
   watched = bottle.request.json["watched"]
   user_id = session["user_id"]
   if(user_id):
+    sa_session = Session()
     episode_watches = sa_session.query(EpisodeWatch) \
               .filter(EpisodeWatch.user_id == user_id) \
               .join(EpisodeWatch.episodes) \
@@ -84,6 +86,7 @@ def update_episode_watches_for_show(session, show_id):
 def season_watch(session, show_id, season_number):
   user_id = session.get("user_id")
   if(user_id):
+    sa_session = Session()
     episodes_watched = sa_session.query(EpisodeWatch) \
                               .filter(EpisodeWatch.user_id == user_id) \
                               .join(EpisodeWatch.episodes) \
@@ -103,6 +106,7 @@ def update_season_watch(session, show_id, season_number):
   watched = bottle.request.json["watched"]
   user_id = session["user_id"]
   if(user_id):
+    sa_session = Session()
     episode_watches = sa_session.query(EpisodeWatch) \
               .filter(EpisodeWatch.user_id == user_id) \
               .join(EpisodeWatch.episodes) \

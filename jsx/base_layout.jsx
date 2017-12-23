@@ -8,7 +8,10 @@ var BaseLayout = React.createClass({
       <div className="mdl-layout mdl-js-layout mdl-layout--fixed-header" style={{alignItems: "center"}}>
         <header className="mdl-layout__header">
           <div className="mdl-layout__header-row">
-            <a href="/" style={{textDecoration: "none", color: "white"}}><span className="mdl-layout-title">Overseer.TV</span></a>
+            <a href="/" style={{textDecoration: "none", color: "white", width: "170px"}}>
+              <img style={{float:"left"}} src="/static/img/overseer_robot_small.png"/>
+              <span style={{marginLeft: "55px", marginTop: "18px"}} className="mdl-layout-title">overseer.tv</span>
+            </a>
             <div className="mdl-layout-spacer"></div>
             
             { this.props.current_user ? 

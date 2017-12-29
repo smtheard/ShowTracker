@@ -1,13 +1,14 @@
-import bottle, sys
-import routes
-from util import json_monkey_patch
-from config import *
+import sys
+import bottle
+from bottle.ext import beaker
+import routes # pylint: disable=unused-import
+from util import json_monkey_patch # pylint: disable=unused-import
+from config import app, Base, engine
 
 PROD = '--prod' in sys.argv
 
 if not PROD:
-    import controllers.secret_test
-
+    import controllers.secret_test # pylint: disable=unused-import
 
 def run():
     bottle.debug(not PROD)

@@ -6,7 +6,7 @@ from models.user import User
 def root(session):
     user = None
     user_id = session.get("user_id")
-    if (user_id):
+    if user_id:
         sa_session = Session()
         user = sa_session.query(User).filter(User.id == user_id).first()
     return br.render_html(

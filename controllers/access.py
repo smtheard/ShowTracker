@@ -1,12 +1,8 @@
+import slugify
 import bottle
 from config import app, br, Session
 from util.sql_alchemy_helper import SQLAlchemyHelper as sa_helper
 from models.user import User
-
-import slugify
-
-# Login Routes
-
 
 @app.get('/login')
 def login():
@@ -20,30 +16,25 @@ def login():
         ]),
         title="Overseer.TV Show Tracking App")
 
-
 @app.post('/login')
 def login_submit(session):
-    username = bottle.request.json["username"]
-    password = bottle.request.json["password"]
+    username = bottle.request.json.username
+    password = bottle.request.json.password
 
     sa_session = Session()
     user = sa_session.query(User).filter_by(username=username).first()
 
-    if (user is None):
+    if user is None:
         return {
             "success": False,
             "error_message": "no user with username: " + username
         }
 
-    if (user.authenticate(password)):
+    if user.authenticate(password):
         session["user_id"] = user.id
         return {"success": True}
-    else:
-        return {"success": False, "error_message": "invalid password"}
 
-
-# Register Routes
-
+    return {"success": False, "error_message": "invalid password"}
 
 @app.get('/register')
 def register():
@@ -58,11 +49,10 @@ def register():
         ]),
         title="Overseer.TV Show Tracking App")
 
-
 @app.post('/register')
 def register_submit(session):
-    username = bottle.request.json["username"]
-    password = bottle.request.json["password"]
+    username = bottle.request.json.username
+    password = bottle.request.json.password
 
     if not username or not password:
         return {"success": False}
@@ -79,7 +69,6 @@ def register_submit(session):
     sa_session.commit()
     session["user_id"] = user.id
     return {"success": True}
-
 
 @app.get('/logout')
 def logout(session):

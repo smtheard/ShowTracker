@@ -1,7 +1,6 @@
-import config
-import sqlalchemy as sa
 from datetime import datetime
-
+import sqlalchemy as sa
+import config
 
 class Network(config.Base):
     __tablename__ = 'network'

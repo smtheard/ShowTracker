@@ -1,18 +1,17 @@
+from datetime import datetime
+from dateutil.parser import parse
+import slugify
+import pytvmaze
+from util.dateutil import UTC
+from util.sql_alchemy_helper import SQLAlchemyHelper as sa_helper
+from config import Session
 from models.show import Show
 from models.episode import Episode
 from models.network import Network
 from models.genre import Genre
 from models.show_genre import ShowGenre
-from util.dateutil import UTC
+
 utc = UTC()
-from dateutil.parser import parse
-from util.sql_alchemy_helper import SQLAlchemyHelper as sa_helper
-from config import Session
-from datetime import datetime
-
-import pytvmaze
-import slugify
-
 
 class TVMazeAPI(object):
 
@@ -25,7 +24,7 @@ class TVMazeAPI(object):
             show_name=show_name, maze_id=tvmaze_id)
 
         network = None
-        if (tvm_show.network):
+        if tvm_show.network:
             network, was_created = sa_helper.get_or_create(
                 sa_session, Network, name=tvm_show.network.name)
 
@@ -110,7 +109,7 @@ class TVMazeAPI(object):
 
         for tvm_episode in tvm_show.episodes:
             ep = episodes_by_tvm_id.get(tvm_episode.maze_id)
-            if (ep):
+            if ep:
                 ep.first_air = tvm_episode.airstamp and parse(
                     tvm_episode.airstamp).astimezone(utc).replace(tzinfo=None)
                 ep.number = tvm_episode.episode_number
@@ -151,7 +150,7 @@ class TVMazeAPI(object):
 
         for tvm_id, update in tvm_updates.items():
             show = show_dict.get(tvm_id)
-            if (show is None):
+            if show is None:
                 TVMazeAPI.fetch(tvmaze_id=tvm_id)
             elif (datetime.fromtimestamp(update.seconds_since_epoch,
                                          utc).replace(tzinfo=None) >

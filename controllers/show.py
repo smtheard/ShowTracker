@@ -1,34 +1,31 @@
 from __future__ import division
-import bottle
 import math
+from collections import defaultdict
 from sqlalchemy.orm import joinedload
 from sqlalchemy import func
+import bottle
 from config import app, br, Session
-
 from models.show import Show
 from models.show_follow import ShowFollow
 from models.user import User
 
-from collections import defaultdict
-
-
 @app.get('/show/<slug>')
-def root(session, slug):
+def get_show(session, slug):
     user = None
     user_id = session.get("user_id")
 
     sa_session = Session()
-    if (user_id):
+    if user_id:
         user = sa_session.query(User).filter(User.id == user_id).first()
 
     show = sa_session.query(Show) \
       .options(joinedload('episodes.episode_watches')) \
-      .filter(func.lower(Show.slug)==func.lower(slug)).first()
+      .filter(func.lower(Show.slug) == func.lower(slug)).first()
 
-    if (not show):
+    if not show:
         bottle.abort(404, "URL Not Found")
 
-    episodes_by_season = defaultdict(lambda: list())
+    episodes_by_season = defaultdict(list)
     for episode in show.episodes:
         episodes_by_season[episode.season].append(episode.to_dict(user))
 
@@ -49,7 +46,7 @@ def shows_by_page(session, page):
     user = None
 
     sa_session = Session()
-    if (user_id):
+    if user_id:
         user = sa_session.query(User).filter(User.id == user_id).first()
 
     page_count = math.ceil(sa_session.query(Show).count() / 12)
@@ -65,7 +62,7 @@ def shows_by_page(session, page):
 
 @app.post('/rest/shows/<page>')
 def shows_query(session, page):
-    query = bottle.request.json["query"]
+    query = bottle.request.json.query
 
     if query == "":
         return shows_by_page(session, 0)
@@ -73,7 +70,8 @@ def shows_query(session, page):
     user_id = session.get("user_id")
     user = None
 
-    if (user_id):
+    sa_session = Session()
+    if user_id:
         user = sa_session.query(User).filter(User.id == user_id).first()
 
     page_count = math.ceil(

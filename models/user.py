@@ -1,8 +1,7 @@
-import config
-import sqlalchemy as sa
-import bcrypt
 from datetime import datetime
-
+import bcrypt
+import sqlalchemy as sa
+import config
 
 class User(config.Base):
     __tablename__ = 'user'

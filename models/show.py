@@ -1,10 +1,8 @@
-import config
-import sqlalchemy as sa
-import network
 from datetime import datetime
+import sqlalchemy as sa
+import config
 from util.dateutil import UTC
 utc = UTC()
-
 
 class Show(config.Base):
     __tablename__ = 'show'

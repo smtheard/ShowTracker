@@ -54,6 +54,7 @@ jobs:
             find ~/repo/routes.py -iname "*.py" | xargs pylint --rcfile=pylintrc
 
 
+
       # run tests!
       # - run:
       #     name: run tests
@@ -64,5 +65,3 @@ jobs:
       - store_artifacts:
           path: test-reports
           destination: test-reports
-
-

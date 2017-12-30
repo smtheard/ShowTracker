@@ -33,15 +33,13 @@ def user(session, slug):
     now = datetime.datetime.now()
     recent_episodes = sa_session.query(Episode) \
       .filter(Episode.first_air.between(now - two_months, now + two_months)) \
-      .filter(Episode.show_id.in_(map(lambda show: show.id, followed_shows))) \
+      .filter(Episode.show_id.in_([show.id for show in followed_shows])) \
       .options(joinedload("episode_watches")) \
       .options(joinedload("show"))
 
     props = user_being_viewed.to_page_dict()
-    props["followed_shows"] = map(
-        lambda show: show.to_card_dict(user_being_viewed), followed_shows)
-    props["episodes"] = map(lambda episode: episode.to_user_dict(current_user),
-                            recent_episodes)
+    props["followed_shows"] = [show.to_card_dict(current_user) for show in followed_shows]
+    props["episodes"] = [episode.to_user_dict(current_user) for episode in recent_episodes]
     props["key"] = "user"
     return br.render_html(
         br.BaseLayout({

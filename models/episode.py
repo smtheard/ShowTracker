@@ -44,9 +44,7 @@ class Episode(config.Base):
             "show_path":
             self.show.path(),
             "watched_by_user":
-            bool(
-                filter(lambda uid: uid == user.id,
-                       map(lambda ew: ew.user_id, self.episode_watches)))
+            bool([uid for uid in [ew.user_id for ew in self.episode_watches] if uid == user.id])
             if user else False
         }
 
@@ -65,9 +63,7 @@ class Episode(config.Base):
             "show_path":
             self.show.path(),
             "watched_by_user":
-            bool(
-                filter(lambda uid: uid == user.id,
-                       map(lambda ew: ew.user_id, self.episode_watches)))
+            bool([uid for uid in [ew.user_id for ew in self.episode_watches] if uid == user.id])
             if user else False
         }
 

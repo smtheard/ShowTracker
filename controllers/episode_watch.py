@@ -17,7 +17,7 @@ def get_episode_watch(session, episode_id):
 
 @app.post("/rest/episode-watch/<episode_id>")
 def update_episode_watch(session, episode_id):
-    watched = bottle.request.json.watched
+    watched = bottle.request.json.get("watched")
     user_id = session["user_id"]
     if user_id:
         sa_session = Session()
@@ -59,7 +59,7 @@ def update_episode_watches_for_show(session, show_id):
                   .join(EpisodeWatch.episodes) \
                   .filter(Episode.show_id == show_id) \
                   .all()
-        episode_watch_ids = map(lambda ew: ew.id, episode_watches)
+        episode_watch_ids = [ew.id for ew in episode_watches]
         sa_session.query(EpisodeWatch).filter(
             EpisodeWatch.id.in_(episode_watch_ids)).delete(
                 synchronize_session='fetch')
@@ -106,7 +106,7 @@ def update_season_watch(session, show_id, season_number):
                   .filter(Episode.show_id == show_id) \
                   .filter(Episode.season == season_number) \
                   .all()
-        episode_watch_ids = map(lambda ew: ew.id, episode_watches)
+        episode_watch_ids = [ew.id for ew in episode_watches]
         sa_session.query(EpisodeWatch).filter(
             EpisodeWatch.id.in_(episode_watch_ids)).delete(
                 synchronize_session='fetch')

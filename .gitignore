@@ -3,3 +3,4 @@ node_modules
 static/js/bundle.js
 static/js/bundle.js.gz
 config_prod.py
+showtracker-env

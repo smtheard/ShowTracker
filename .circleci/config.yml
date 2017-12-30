@@ -49,12 +49,12 @@ jobs:
             find ~/repo/controllers -iname "*.py" | xargs pylint --rcfile=pylintrc &&
             find ~/repo/models -iname "*.py" | xargs pylint --rcfile=pylintrc &&
             find ~/repo/util -iname "*.py" | xargs pylint --rcfile=pylintrc &&
-            find ~/repo/server.py -iname "*.py" | xargs pylint --rcfile=pylintrc &&
-            find ~/repo/config.py -iname "*.py" | xargs pylint --rcfile=pylintrc &&
-            find ~/repo/routes.py -iname "*.py" | xargs pylint --rcfile=pylintrc
+            pylint --rcfile=pylintrc ~/repo/server.py &&
+            pylint --rcfile=pylintrc ~/repo/config.py &&
+            pylint --rcfile=pylintrc ~/repo/routes.py
 
 
-
+      # find ~/repo/test -iname "*.py" | xargs pylint --rcfile=pylintrc &&
       # run tests!
       # - run:
       #     name: run tests

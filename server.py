@@ -9,6 +9,10 @@ PROD = '--prod' in sys.argv
 
 if not PROD:
     import controllers.secret_test # pylint: disable=unused-import
+else:
+    # TODO: Temp workaround for SQLAlchemy not knowing about certain 
+    # models only used within the TVMaze API interaction
+    from models.tv_maze_api import TVMazeAPI # pylint: disable=unused-import
 
 def run():
     bottle.debug(not PROD)

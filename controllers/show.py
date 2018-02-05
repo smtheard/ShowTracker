@@ -62,7 +62,7 @@ def shows_by_page(session, page):
 
 @app.post('/rest/shows/<page>')
 def shows_query(session, page):
-    query = bottle.request.json.query
+    query = bottle.request.json.get("query")
 
     if query == "":
         return shows_by_page(session, 0)

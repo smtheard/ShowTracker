@@ -1,7 +1,7 @@
 import sys
+import util.json_monkey_patch # pylint: disable=unused-import
 import bottle
 from bottle.ext import beaker
-import util.json_monkey_patch # pylint: disable=unused-import
 import routes # pylint: disable=unused-import
 from config import app, Base, engine
 

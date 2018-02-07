@@ -9,3 +9,4 @@ pytvmaze==2.0.8
 awesome-slugify==1.6.5
 tornado==4.5.3
 python-dateutil==2.6.1
+simplejson==3.11.1

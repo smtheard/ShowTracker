@@ -50,7 +50,7 @@ def episode_watches_for_show(session, show_id):
 
 @app.post("/rest/show-watch/<show_id>")
 def update_episode_watches_for_show(session, show_id):
-    watched = bottle.request.json.watched
+    watched = bottle.request.json.get("watched")
     user_id = session["user_id"]
     if user_id:
         sa_session = Session()
@@ -96,7 +96,7 @@ def season_watch(session, show_id, season_number):
 
 @app.post("/rest/season-watch/<show_id>/<season_number>")
 def update_season_watch(session, show_id, season_number):
-    watched = bottle.request.json.watched
+    watched = bottle.request.json.get("watched")
     user_id = session["user_id"]
     if user_id:
         sa_session = Session()

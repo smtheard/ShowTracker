@@ -1,8 +1,8 @@
 import sys
 import bottle
 from bottle.ext import beaker
+import util.json_monkey_patch # pylint: disable=unused-import
 import routes # pylint: disable=unused-import
-from util import json_monkey_patch # pylint: disable=unused-import
 from config import app, Base, engine
 
 PROD = '--prod' in sys.argv

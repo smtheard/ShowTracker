@@ -18,8 +18,8 @@ def login():
 
 @app.post('/login')
 def login_submit(session):
-    username = bottle.request.json.username
-    password = bottle.request.json.password
+    username = bottle.request.json.get("username")
+    password = bottle.request.json.get("password")
 
     sa_session = Session()
     user = sa_session.query(User).filter_by(username=username).first()
@@ -51,8 +51,8 @@ def register():
 
 @app.post('/register')
 def register_submit(session):
-    username = bottle.request.json.username
-    password = bottle.request.json.password
+    username = bottle.request.json.get("username")
+    password = bottle.request.json.get("password")
 
     if not username or not password:
         return {"success": False}

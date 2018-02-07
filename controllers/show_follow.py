@@ -16,7 +16,7 @@ def get_show_follow(session, show_id):
 
 @app.post("/rest/show-follow/<show_id>")
 def update_show_follow(session, show_id):
-    following = bottle.request.json.following
+    following = bottle.request.json.get("following")
     user_id = session.get("user_id")
     if user_id:
         sa_session = Session()

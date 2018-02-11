@@ -9,6 +9,8 @@ import bottle
 
 PROD = '--prod' in sys.argv
 
+MAILGUN_API_KEY = "NOTAREALKEY"
+
 Base = declarative_base()
 engine = create_engine(
     'postgresql+psycopg2://stefan:test@localhost:5432/slothy_development',

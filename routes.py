@@ -1,3 +1,4 @@
+import controllers.errors # pylint: disable=unused-import
 import controllers.static # pylint: disable=unused-import
 import controllers.home # pylint: disable=unused-import
 import controllers.access # pylint: disable=unused-import

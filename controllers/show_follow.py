@@ -24,6 +24,7 @@ def update_show_follow(session, show_id):
             sa_session.query(ShowFollow) \
                       .filter(ShowFollow.show_id == show_id, ShowFollow.user_id == user_id) \
                       .delete()
+            sa_session.commit()
             return dict(following=False, success=True)
         show_follow = ShowFollow(show_id=show_id, user_id=user_id)
         sa_session.add(show_follow)

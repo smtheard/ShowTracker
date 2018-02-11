@@ -2,6 +2,7 @@ from datetime import datetime
 import sqlalchemy as sa
 import config
 from util.dateutil import UTC
+from models.show_follow import ShowFollow # pylint: disable=unused-import
 utc = UTC()
 
 class Show(config.Base):

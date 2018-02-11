@@ -1,6 +1,7 @@
 from datetime import datetime
 import sqlalchemy as sa
 import config
+from models.episode_watch import EpisodeWatch # pylint: disable=unused-import
 
 class Episode(config.Base):
     __tablename__ = 'episode'

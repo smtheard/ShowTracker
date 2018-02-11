@@ -2,6 +2,9 @@ from datetime import datetime
 import sqlalchemy as sa
 import config
 from util.dateutil import UTC
+from models.episode import Episode # pylint: disable=unused-import
+from models.network import Network # pylint: disable=unused-import
+from models.show_follow import ShowFollow # pylint: disable=unused-import
 utc = UTC()
 
 class Show(config.Base):

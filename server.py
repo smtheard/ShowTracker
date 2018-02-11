@@ -1,18 +1,11 @@
 import sys
-import util.json_monkey_patch # pylint: disable=unused-import
+import util.json_monkey_patch # pylint: disable=unused-import,wrong-import-order
 import bottle
 from bottle.ext import beaker
 import routes # pylint: disable=unused-import
 from config import app, Base, engine
 
 PROD = '--prod' in sys.argv
-
-if not PROD:
-    import controllers.secret_test # pylint: disable=unused-import
-else:
-    # TODO: Temp workaround for SQLAlchemy not knowing about certain
-    # models only used within the TVMaze API interaction
-    from models.tv_maze_api import TVMazeAPI # pylint: disable=unused-import
 
 def run():
     bottle.debug(not PROD)

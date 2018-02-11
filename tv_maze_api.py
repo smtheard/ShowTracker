@@ -156,3 +156,6 @@ class TVMazeAPI(object):
                                          utc).replace(tzinfo=None) >
                   show.last_cached_at):
                 TVMazeAPI.refresh(show=show, tvmaze_id=tvm_id)
+
+if __name__ == "__main__":
+    TVMazeAPI.sync_cache()

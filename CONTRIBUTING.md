@@ -40,4 +40,7 @@ Finally, to run the app:
 python server.py
 ```
 
-Navigate to `localhost:8080/sync-cache` to get data from TVMaze. This is just a hack, the route is limited to development and it is easier to run it inside the app since it needs access to several models.
+And to fill database with shows (uses config.py for db info):
+```python
+python tv_maze_api.py
+```

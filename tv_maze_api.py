@@ -76,9 +76,10 @@ class TVMazeAPI(object):
                 sa_session, ShowGenre, show_id=show.id, genre_id=genre.id)
 
         sa_session.commit()
+        sa_session.close()
 
     @staticmethod
-    def refresh(show, tvmaze_id):
+    def refresh(show, show_session, tvmaze_id):
         sa_session = Session()
         tvm_show = TVMazeAPI.tvm.get_show(
             show_name=show.title, maze_id=tvmaze_id)
@@ -138,6 +139,8 @@ class TVMazeAPI(object):
                 sa_session.add(new_ep)
 
         sa_session.commit()
+        show_session.commit()
+        sa_session.close()
 
     @staticmethod
     def sync_cache(re_cache_all=False):
@@ -155,7 +158,8 @@ class TVMazeAPI(object):
             elif (datetime.fromtimestamp(update.seconds_since_epoch,
                                          utc).replace(tzinfo=None) >
                   show.last_cached_at):
-                TVMazeAPI.refresh(show=show, tvmaze_id=tvm_id)
+                TVMazeAPI.refresh(show=show, show_session=sa_session, tvmaze_id=tvm_id)
+        sa_session.close()
 
 if __name__ == "__main__":
     TVMazeAPI.sync_cache()

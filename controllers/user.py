@@ -29,10 +29,10 @@ def user(session, slug):
       .filter(ShowFollow.user_id == user_being_viewed.id) \
       .options(joinedload("show_follows"))
 
-    two_months = dateutil.relativedelta.relativedelta(months=2)
+    one_year = dateutil.relativedelta.relativedelta(years=1)
     now = datetime.datetime.now()
     recent_episodes = sa_session.query(Episode) \
-      .filter(Episode.first_air.between(now - two_months, now + two_months)) \
+      .filter(Episode.first_air.between(now - one_year, now + one_year)) \
       .filter(Episode.show_id.in_([show.id for show in followed_shows])) \
       .options(joinedload("episode_watches")) \
       .options(joinedload("show"))

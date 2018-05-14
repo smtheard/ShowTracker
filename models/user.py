@@ -27,7 +27,10 @@ class User(config.Base):
             password, self.password_hash.encode('utf-8')) == self.password_hash
 
     def hash_password(self, password, salt=None):
-        return bcrypt.hashpw(password.encode('utf-8'), salt or bcrypt.gensalt())
+        # bcrypt requires utf-8 encoding, but sqlalchemy
+        # will auto utf-8 encode when you save the text
+        # which is why we decode after hashing
+        return bcrypt.hashpw(password.encode('utf-8'), salt or bcrypt.gensalt()).decode('utf-8')
 
     def __init__(self, username, password, email, slug):
         password_hash = self.hash_password(password)

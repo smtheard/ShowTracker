@@ -11,3 +11,4 @@ The main purpose of overseer is to help you remember what episode of a show you 
 Please submit issues here in github for any potential bugs or feature requests, I will answer back quickly.
 
 For development please see the [Contribution Guide](https://github.com/smtheard/ShowTracker/blob/master/CONTRIBUTING.md)
+asd
